@@ -82,11 +82,14 @@ void initialiser_tableau_solution(int **tab, int m, int n, int nombre_bombes)
         }
     }
 
+    int x;
+    int y;
+
     // place les bombes dans la grille
     for (int k = 0; k < nombre_bombes; k++)
     {
-        int x = rand() % n;
-        int y = rand() % m;
+        x = rand() % n;
+        y = rand() % m;
         while (tab[y][x] == BOMBE)
         {
             x = rand() % n;
@@ -96,11 +99,10 @@ void initialiser_tableau_solution(int **tab, int m, int n, int nombre_bombes)
     }
 
     // calcul les nombres pour toutes les autres cases
-    for (int y = 0; y < m; y++)
+    for (y = 0; y < m; y++)
     {
-        for (int x = 0; x < n; x++)
+        for (x = 0; x < n; x++)
         {
-            printf("%d %d", y, x);
             if (tab[y][x] == BOMBE)
             {
                 continue;
@@ -112,9 +114,9 @@ void initialiser_tableau_solution(int **tab, int m, int n, int nombre_bombes)
                 {
                     continue;
                 }
-                for (int j = x - 1; j < x + 2; x++)
+                for (int j = x - 1; j < x + 2; j++)
                 {
-                    if (j < 0 || j >= n)
+                    if (j < 0 || j >= n || (i == 0 && j == 0))
                     {
                         continue;
                     }

@@ -4,13 +4,13 @@
 
 int main()
 {
-    int m = 3;
-    int n = 4;
+    int m = 10;
+    int n = 10;
 
     int **tab = creer_tableau(2, 3);
     int **tab2 = creer_tableau(m, n);
 
-    initialiser_tableau_solution(tab2, m, n, 3);
+    initialiser_tableau_solution(tab2, m, n, 15);
 
     // tab[0][0] = -1;
     // tab[0][1] = 0;
