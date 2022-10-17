@@ -1,2 +1,2 @@
-# Pong-en-C
-Le jeu de pong codé en C
+# Démineur en C
+Le jeu du démineur codé en C
