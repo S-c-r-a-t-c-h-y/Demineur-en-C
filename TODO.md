@@ -3,7 +3,7 @@
 ## Technique
 
 - créer un tableau taille $m \times n$ OK
-- tableau 1 (solution):
+- tableau 1 (solution): je m'occupe de cette partie
   - placer bombes
   - calculer numéros en fonction
 - tableau 2 (jeu courant):
