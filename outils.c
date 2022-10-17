@@ -4,13 +4,13 @@
 
 #define BOMBE -1
 #define DRAPEAU -2
-#define VIDE -3
-#define PAS_TROUVE 0
+#define VIDE 0
+#define PAS_DECOUVERT -3
 
 const char bombe = 'x';
 const char vide = ' ';
 const char drapeau = 'p';
-const char pas_trouve = ' ';
+const char pas_decouvert = ' ';
 
 void affiche_tableau(int **tab, int hauteur, int largeur)
 {
@@ -29,8 +29,8 @@ void affiche_tableau(int **tab, int hauteur, int largeur)
             case VIDE:
                 printf("|%c", vide);
                 break;
-            case PAS_TROUVE:
-                printf("|%c", pas_trouve);
+            case PAS_DECOUVERT:
+                printf("|%c", pas_decouvert);
                 break;
             default:
                 printf("|%d", tab[i][j]);
@@ -66,7 +66,7 @@ void initialiser_tableau_courant(int **tab, int m, int n)
     {
         for (int j = 0; j < n; j++)
         {
-            tab[i][j] = PAS_TROUVE;
+            tab[i][j] = PAS_DECOUVERT;
         }
     }
 }
@@ -78,7 +78,7 @@ void initialiser_tableau_solution(int **tab, int m, int n, int nombre_bombes)
     {
         for (int j = 0; j < n; j++)
         {
-            tab[i][j] = PAS_TROUVE;
+            tab[i][j] = VIDE;
         }
     }
 
