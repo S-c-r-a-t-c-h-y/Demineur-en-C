@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 #define BOMBE -1
 #define DRAPEAU -2
@@ -56,13 +57,74 @@ int **creer_tableau(int m, int n)
         }
     }
 
+    return matrice;
+}
+
+void initialiser_tableau_courant(int **tab, int m, int n)
+{
     for (int i = 0; i < m; i++)
     {
         for (int j = 0; j < n; j++)
         {
-            matrice[i][j] = 0;
+            tab[i][j] = PAS_TROUVE;
+        }
+    }
+}
+
+void initialiser_tableau_solution(int **tab, int m, int n, int nombre_bombes)
+{
+    srand(time(NULL));
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            tab[i][j] = PAS_TROUVE;
         }
     }
 
-    return matrice;
+    // place les bombes dans la grille
+    for (int k = 0; k < nombre_bombes; k++)
+    {
+        int x = rand() % n;
+        int y = rand() % m;
+        while (tab[y][x] == BOMBE)
+        {
+            x = rand() % n;
+            y = rand() % m;
+        }
+        tab[y][x] = BOMBE;
+    }
+
+    // calcul les nombres pour toutes les autres cases
+    for (int y = 0; y < m; y++)
+    {
+        for (int x = 0; x < n; x++)
+        {
+            printf("%d %d", y, x);
+            if (tab[y][x] == BOMBE)
+            {
+                continue;
+            }
+            int bombes_voisines = 0;
+            for (int i = y - 1; i < y + 2; i++)
+            {
+                if (i < 0 || i >= m)
+                {
+                    continue;
+                }
+                for (int j = x - 1; j < x + 2; x++)
+                {
+                    if (j < 0 || j >= n)
+                    {
+                        continue;
+                    }
+                    if (tab[i][j] == BOMBE)
+                    {
+                        bombes_voisines += 1;
+                    }
+                }
+            }
+            tab[y][x] = bombes_voisines;
+        }
+    }
 }
