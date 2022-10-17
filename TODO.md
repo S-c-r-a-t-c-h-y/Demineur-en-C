@@ -2,10 +2,10 @@
 
 ## Technique
 
-- créer un tableau taille $m \times n$ OK
-- tableau 1 (solution): je m'occupe de cette partie
-  - placer bombes
-  - calculer numéros en fonction
+- ~~créer un tableau taille $m \times n$~~
+- ~~tableau 1 (solution):~~
+  - ~~placer bombes~~
+  - ~~calculer numéros en fonction~~
 - tableau 2 (jeu courant):
   - initialiser à vide
   - récupérer les données dans le tableau solution
@@ -18,7 +18,7 @@
 - niveau de difficulté (nombres de bombes)
 - (drapeaux)
 
-## conventions
+## Conventions
 
 - d'abord hauteur ensuite largeur
 - tab[i][j] = ième ligne, jème colonne
