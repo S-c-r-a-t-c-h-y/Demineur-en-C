@@ -12,6 +12,13 @@
 #define VIDE 0
 #define PAS_DECOUVERT -3
 
+#ifdef __linux__
+#define CLEAR_SCREEN "clear"
+#elif _WIN32
+#define CLEAR_SCREEN "cls"
+// for more platforms
+#endif
+
 const char vide = ' ';
 const int bombe = 0x2699;
 const int drapeau = 0x2691;
@@ -26,6 +33,11 @@ void print_unicode(int unicode_code)
     wprintf(L"%c", character);
     // remet l'encodage de la console comme normal
     _setmode(_fileno(stdout), _O_TEXT);
+}
+
+void clear_screen()
+{
+    system(CLEAR_SCREEN);
 }
 
 void affiche_tableau(int **tab, int hauteur, int largeur)
@@ -156,7 +168,18 @@ int decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n, 
     assert(x >= 0 && x < n && y >= 0 && y < m);
     if (tableau_solution[y][x] == BOMBE)
     {
-        /* code */
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                if (tableau_solution[i][j] == BOMBE)
+                {
+                    tableau_courant[i][j] = BOMBE;
+                }
+            }
+        }
+
+        return 1;
     }
 }
 
