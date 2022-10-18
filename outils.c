@@ -16,7 +16,8 @@
 #define CLEAR_SCREEN "clear"
 #elif _WIN32
 #define CLEAR_SCREEN "cls"
-// for more platforms
+#elif __APPLE__
+#define CLEAR_SCREEN "clear"
 #endif
 
 const char vide = ' ';
