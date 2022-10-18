@@ -18,6 +18,11 @@ int main()
 
     affiche_tableau(tableau_courant, m, n);
 
+    // while (nb_bombes != 0)
+    // {
+    //     // boucle principale
+    // }
+
     liberer_tableau(tableau_solution, m);
     return 0;
 }

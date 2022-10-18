@@ -12,10 +12,11 @@
 #define VIDE 0
 #define PAS_DECOUVERT -3
 
-const char bombe = 'x';
 const char vide = ' ';
-const char drapeau = 'p';
-const int pas_decouvert = 0x25FB;
+const int bombe = 0x2699;
+const int drapeau = 0x2691;
+const int pas_decouvert = 0x2610;
+// U+2612
 
 void print_unicode(int unicode_code)
 {
@@ -33,14 +34,14 @@ void affiche_tableau(int **tab, int hauteur, int largeur)
     {
         for (int j = 0; j < largeur; j++)
         {
-            printf("|");
+            printf(" ");
             switch (tab[i][j])
             {
             case BOMBE:
-                printf("%c", bombe);
+                print_unicode(bombe);
                 break;
             case DRAPEAU:
-                printf("%c", drapeau);
+                print_unicode(drapeau);
                 break;
             case VIDE:
                 printf("%c", vide);
@@ -53,7 +54,7 @@ void affiche_tableau(int **tab, int hauteur, int largeur)
                 break;
             }
         }
-        printf("|\n");
+        printf("\n");
     }
 }
 
@@ -147,6 +148,15 @@ void initialiser_tableau_solution(int **tab, int m, int n, int nombre_bombes)
             }
             tab[y][x] = bombes_voisines;
         }
+    }
+}
+
+int decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n, int y, int x)
+{
+    assert(x >= 0 && x < n && y >= 0 && y < m);
+    if (tableau_solution[y][x] == BOMBE)
+    {
+        /* code */
     }
 }
 
