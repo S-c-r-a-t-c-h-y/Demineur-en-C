@@ -1,6 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <assert.h>
+#include <fcntl.h>
+#include <io.h>
+
+#define UTF_16_ENCODING 0x00020000
 
 #define BOMBE -1
 #define DRAPEAU -2
@@ -10,7 +15,18 @@
 const char bombe = 'x';
 const char vide = ' ';
 const char drapeau = 'p';
-const char pas_decouvert = ' ';
+const int pas_decouvert = 0x25FB;
+const int pipe = 0xFF5C;
+const int EOL = 0x000A;
+
+void print_unicode(int unicode_code)
+{
+    // défini l'encodage de la console
+    _setmode(_fileno(stdout), UTF_16_ENCODING);
+
+    const wchar_t character = unicode_code;
+    wprintf(L"%c", character);
+}
 
 void affiche_tableau(int **tab, int hauteur, int largeur)
 {
@@ -18,6 +34,7 @@ void affiche_tableau(int **tab, int hauteur, int largeur)
     {
         for (int j = 0; j < largeur; j++)
         {
+            print_unicode(pipe);
             switch (tab[i][j])
             {
             case BOMBE:
@@ -30,14 +47,15 @@ void affiche_tableau(int **tab, int hauteur, int largeur)
                 printf("|%c", vide);
                 break;
             case PAS_DECOUVERT:
-                printf("|%c", pas_decouvert);
+                print_unicode(pas_decouvert);
                 break;
             default:
                 printf("|%d", tab[i][j]);
                 break;
             }
         }
-        printf("|\n");
+        print_unicode(pipe);
+        print_unicode(EOL);
     }
 }
 
@@ -73,6 +91,9 @@ void initialiser_tableau_courant(int **tab, int m, int n)
 
 void initialiser_tableau_solution(int **tab, int m, int n, int nombre_bombes)
 {
+    // on vérifie que le nombre de bombes est bien inférieur au nombre de cases du tableau
+    assert(nombre_bombes < m * n);
+
     srand(time(NULL));
     for (int i = 0; i < m; i++)
     {
@@ -129,4 +150,13 @@ void initialiser_tableau_solution(int **tab, int m, int n, int nombre_bombes)
             tab[y][x] = bombes_voisines;
         }
     }
+}
+
+void liberer_tableau(int **tab, int m)
+{
+    for (int i = 0; i < m; i++)
+    {
+        free(tab[i]);
+    }
+    free(tab);
 }

@@ -2,36 +2,26 @@
 #include <stdio.h>
 #include "outils.h"
 
+#define UTF_16_ENCODING 0x00020000
+
 int main()
 {
-    int m = 10;
-    int n = 10;
+    _setmode(_fileno(stdout), UTF_16_ENCODING);
 
-    int **tab = creer_tableau(2, 3);
-    int **tab2 = creer_tableau(m, n);
+    int m = 10; // nombre de lignes du tableau
+    int n = 10; // nombre de colonnes du tableau
 
-    initialiser_tableau_solution(tab2, m, n, 15);
+    int nb_bombes = 10; // nombre de bombe dans le tableau
 
-    // tab[0][0] = -1;
-    // tab[0][1] = 0;
-    // tab[0][2] = -2;
-    // tab[1][0] = 2;
-    // tab[1][1] = 3;
-    // tab[1][2] = -3;
+    // le tableau solution contient les bombes et les numéros des cases
+    int **tableau_solution = creer_tableau(m, n);
+    initialiser_tableau_solution(tableau_solution, m, n, nb_bombes);
 
-    // affiche_tableau(tab, 2, 3);
-    affiche_tableau(tab2, m, n);
+    int **tableau_courant = creer_tableau(m, n);
+    initialiser_tableau_courant(tableau_courant, m, n);
 
-    for (int i = 0; i < 2; i++)
-    {
-        free(tab[i]);
-    }
-    free(tab);
+    affiche_tableau(tableau_courant, m, n);
 
-    for (int i = 0; i < m; i++)
-    {
-        free(tab2[i]);
-    }
-    free(tab2);
+    liberer_tableau(tableau_solution, m);
     return 0;
 }
