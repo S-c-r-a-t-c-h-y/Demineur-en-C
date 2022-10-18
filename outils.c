@@ -3,7 +3,13 @@
 #include <time.h>
 #include <assert.h>
 #include <fcntl.h>
-#include <io.h>
+#include <wchar.h>
+
+#ifdef __APPLE__
+        #include <sys/uio.h>
+#else
+        #include <sys/io.h>
+#endif
 
 #define UTF_16_ENCODING 0x00020000
 
@@ -29,6 +35,14 @@ const int pas_decouvert = 0x2610;
 void print_unicode(int unicode_code)
 {
     // défini l'encodage de la console en UTF-16
+    int _fileno(
+       FILE *stream
+    );
+    int _setmode (
+       int fd,
+       int mode
+    );
+    int _O_TEXT = 0;
     _setmode(_fileno(stdout), UTF_16_ENCODING);
     const wchar_t character = unicode_code;
     wprintf(L"%c", character);
