@@ -16,16 +16,15 @@ const char bombe = 'x';
 const char vide = ' ';
 const char drapeau = 'p';
 const int pas_decouvert = 0x25FB;
-const int pipe = 0xFF5C;
-const int EOL = 0x000A;
 
 void print_unicode(int unicode_code)
 {
-    // défini l'encodage de la console
+    // défini l'encodage de la console en UTF-16
     _setmode(_fileno(stdout), UTF_16_ENCODING);
-
     const wchar_t character = unicode_code;
     wprintf(L"%c", character);
+    // remet l'encodage de la console comme normal
+    _setmode(_fileno(stdout), _O_TEXT);
 }
 
 void affiche_tableau(int **tab, int hauteur, int largeur)
@@ -34,28 +33,27 @@ void affiche_tableau(int **tab, int hauteur, int largeur)
     {
         for (int j = 0; j < largeur; j++)
         {
-            print_unicode(pipe);
+            printf("|");
             switch (tab[i][j])
             {
             case BOMBE:
-                printf("|%c", bombe);
+                printf("%c", bombe);
                 break;
             case DRAPEAU:
-                printf("|%c", drapeau);
+                printf("%c", drapeau);
                 break;
             case VIDE:
-                printf("|%c", vide);
+                printf("%c", vide);
                 break;
             case PAS_DECOUVERT:
                 print_unicode(pas_decouvert);
                 break;
             default:
-                printf("|%d", tab[i][j]);
+                printf("%d", tab[i][j]);
                 break;
             }
         }
-        print_unicode(pipe);
-        print_unicode(EOL);
+        printf("|\n");
     }
 }
 

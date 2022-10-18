@@ -2,12 +2,8 @@
 #include <stdio.h>
 #include "outils.h"
 
-#define UTF_16_ENCODING 0x00020000
-
 int main()
 {
-    _setmode(_fileno(stdout), UTF_16_ENCODING);
-
     int m = 10; // nombre de lignes du tableau
     int n = 10; // nombre de colonnes du tableau
 
