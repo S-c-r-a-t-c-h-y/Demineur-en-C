@@ -5,11 +5,7 @@
 #include <fcntl.h>
 #include <wchar.h>
 
-#ifdef __APPLE__
-#include <sys/uio.h>
-#else
 #include <io.h>
-#endif
 
 #define UTF_16_ENCODING 0x00020000
 #define NORMAL_ENCODING 0x4000
@@ -20,13 +16,7 @@
 #define PAS_DECOUVERT -3
 #define DECOUVERT -4
 
-#ifdef __linux__
-#define CLEAR_SCREEN "clear"
-#elif _WIN32
 #define CLEAR_SCREEN "cls"
-#elif __APPLE__
-#define CLEAR_SCREEN "clear"
-#endif
 
 const char vide = ' ';
 const int bombe = 0x2699;
@@ -36,10 +26,6 @@ const int pas_decouvert = 0x2610;
 
 void print_unicode(int unicode_code)
 {
-    // déclaration implicite des fonctions _fileno et _setmode
-    int _fileno(FILE * stream);
-    int _setmode(int fd, int mode);
-
     // défini l'encodage de la console en UTF-16
     _setmode(_fileno(stdout), UTF_16_ENCODING);
 
