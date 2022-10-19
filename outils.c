@@ -6,17 +6,19 @@
 #include <wchar.h>
 
 #ifdef __APPLE__
-        #include <sys/uio.h>
+#include <sys/uio.h>
 #else
-        #include <sys/io.h>
+#include <io.h>
 #endif
 
 #define UTF_16_ENCODING 0x00020000
+#define NORMAL_ENCODING 0x4000
 
 #define BOMBE -1
 #define DRAPEAU -2
 #define VIDE 0
 #define PAS_DECOUVERT -3
+#define DECOUVERT -4
 
 #ifdef __linux__
 #define CLEAR_SCREEN "clear"
@@ -34,20 +36,18 @@ const int pas_decouvert = 0x2610;
 
 void print_unicode(int unicode_code)
 {
+    // déclaration implicite des fonctions _fileno et _setmode
+    int _fileno(FILE * stream);
+    int _setmode(int fd, int mode);
+
     // défini l'encodage de la console en UTF-16
-    int _fileno(
-       FILE *stream
-    );
-    int _setmode (
-       int fd,
-       int mode
-    );
-    int _O_TEXT = 0;
     _setmode(_fileno(stdout), UTF_16_ENCODING);
+
     const wchar_t character = unicode_code;
     wprintf(L"%c", character);
+
     // remet l'encodage de la console comme normal
-    _setmode(_fileno(stdout), _O_TEXT);
+    _setmode(_fileno(stdout), NORMAL_ENCODING);
 }
 
 void clear_screen()
@@ -181,7 +181,17 @@ void initialiser_tableau_solution(int **tab, int m, int n, int nombre_bombes)
 int decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n, int y, int x)
 {
     assert(x >= 0 && x < n && y >= 0 && y < m);
-    if (tableau_solution[y][x] == BOMBE)
+    int cases_decouvertes = 0;
+    _decouvrir_case(tableau_courant, tableau_solution, m, n, y, x, 0, &cases_decouvertes);
+    return cases_decouvertes;
+}
+
+void _decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n, int y, int x, int iteration, int *cases_decouvertes)
+{
+    int valeur = tableau_solution[y][x];
+
+    // la case à découvrir est une bombe
+    if (valeur == BOMBE)
     {
         for (int i = 0; i < m; i++)
         {
@@ -194,7 +204,59 @@ int decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n, 
             }
         }
 
-        return 1;
+        *cases_decouvertes = -1;
+        return;
+    }
+
+    // la case à découvrir est un drapeau
+    if (valeur == DRAPEAU)
+    {
+        *cases_decouvertes = 0;
+        return;
+    }
+
+    // la case à découvrir est un chiffre
+    if (valeur != VIDE)
+    {
+        tableau_courant[y][x] = valeur;
+        *cases_decouvertes = *cases_decouvertes + 1;
+        return;
+    }
+
+    // la case à découvrir est vide
+    if (tableau_courant[y][x] == DECOUVERT)
+    {
+        return;
+    }
+    tableau_courant[y][x] = DECOUVERT;
+    *cases_decouvertes = *cases_decouvertes + 1;
+    for (int i = y - 1; i < y + 2; i++)
+    {
+        if (i < 0 || i >= m)
+        {
+            continue;
+        }
+        for (int j = x - 1; j < x + 2; j++)
+        {
+            if (j < 0 || j >= n)
+            {
+                continue;
+            }
+            _decouvrir_case(tableau_courant, tableau_solution, m, n, i, j, iteration + 1, &cases_decouvertes);
+        }
+    }
+    if (iteration == 0)
+    {
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                if (tableau_courant[i][j] == DECOUVERT)
+                {
+                    tableau_courant[i][j] = VIDE;
+                }
+            }
+        }
     }
 }
 

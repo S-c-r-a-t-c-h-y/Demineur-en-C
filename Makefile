@@ -16,10 +16,9 @@ NOM_EXECUTABLE= demineur
 
 # Ligne ci-dessous à conserver
 ifeq ($(UNAME_S),Darwin)
-	OPTIONS = -std=c99 -Wall -Wextra -Wvla #-fsanitize=address,undefined
-	
-else
 	OPTIONS = -std=c99 -Wall -Wextra -Wvla -target x86_64-apple-darwin #-fsanitize=address,undefined
+else
+	OPTIONS = -std=c99 -Wall -Wextra -Wvla #-fsanitize=address,undefined
 endif
 # Règle principale
 all: $(NOM_EXECUTABLE)
@@ -30,4 +29,5 @@ all: $(NOM_EXECUTABLE)
 $(NOM_EXECUTABLE): $(NOM_FICHIER) $(OBJETS)
 	gcc -o $(NOM_EXECUTABLE) $(OPTIONS) $(OBJETS) $(NOM_FICHIER)
 
-
+clean:
+	rm -f *.o;

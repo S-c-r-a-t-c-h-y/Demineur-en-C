@@ -6,9 +6,9 @@
 - ~~tableau 1 (solution):~~
   - ~~placer bombes~~
   - ~~calculer numéros en fonction~~
-- tableau 2 (jeu courant):
+- ~~tableau 2 (jeu courant):~~
   - ~~initialiser à vide~~
-  - récupérer les données dans le tableau solution
+  - ~~récupérer les données dans le tableau solution~~
 - ~~créer une fonction qui affiche le tableau~~
 - créer une fonction qui gère les entrées de l'utilisateur (avec les touches ZQSD, touche valider, touche drapeau)
 
