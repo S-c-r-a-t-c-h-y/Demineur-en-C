@@ -15,7 +15,7 @@ NOM_EXECUTABLE= demineur
 
 # Ligne ci-dessous à conserver
 ifeq ($(UNAME_S),Darwin)
-	OPTIONS = -std=c99 -Wall -Wextra -Wvla -target x86_64-apple-darwin #-fsanitize=address,undefined
+	OPTIONS = -std=c99 -Wall -Wextra -Wvla -target #-fsanitize=address,undefined
 	OBJETS = outils_unix.o
 else
 	OPTIONS = -std=c99 -Wall -Wextra -Wvla #-fsanitize=address,undefined
