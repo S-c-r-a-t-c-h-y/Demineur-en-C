@@ -9,7 +9,7 @@ NOM_FICHIER= main.c
 # fait appel à des fonctions déclarées dans un fichier .h et définies dans un
 # fichier .c de même nom de base que celui du fichier objet généré en .o.
 # Nom de base : nom du fichier sans extension.
-
+#test
 # Donner ci-dessous le nom du fichier exécutable à produire
 NOM_EXECUTABLE= demineur
 
