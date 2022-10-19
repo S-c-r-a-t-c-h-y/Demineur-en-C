@@ -12,6 +12,7 @@
 #define VIDE 0
 #define PAS_DECOUVERT -3
 #define DECOUVERT -4
+#define CASE_ACTUELLE -5
 
 
 #ifdef __linux__
@@ -30,6 +31,7 @@ void clear_screen()
 const char *bombe = "⚙";
 const char *drapeau = "⚑";
 const char *pas_decouvert = "☐";
+const char *case_actuelle = "☒";
 const char vide = ' ';
 void affiche_tableau(int **tab, int hauteur, int largeur)
 {
@@ -40,6 +42,9 @@ void affiche_tableau(int **tab, int hauteur, int largeur)
             printf(" ");
             switch (tab[i][j])
             {
+            case CASE_ACTUELLE:
+                printf("%s", case_actuelle);
+                break;
             case BOMBE:
                 printf("%s", bombe);
                 break;

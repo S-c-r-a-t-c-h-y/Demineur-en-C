@@ -31,4 +31,4 @@ $(NOM_EXECUTABLE): $(NOM_FICHIER) $(OBJETS)
 	gcc -o $(NOM_EXECUTABLE) $(OPTIONS) $(OBJETS) $(NOM_FICHIER)
 
 clean:
-	rm -f *.o;
+	rm -f *.o; rm -f demineur;
