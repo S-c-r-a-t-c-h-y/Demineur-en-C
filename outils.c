@@ -178,14 +178,6 @@ void initialiser_tableau_solution(int **tab, int m, int n, int nombre_bombes)
     }
 }
 
-int decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n, int y, int x)
-{
-    assert(x >= 0 && x < n && y >= 0 && y < m);
-    int cases_decouvertes = 0;
-    _decouvrir_case(tableau_courant, tableau_solution, m, n, y, x, 0, &cases_decouvertes);
-    return cases_decouvertes;
-}
-
 void _decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n, int y, int x, int iteration, int *cases_decouvertes)
 {
     int valeur = tableau_solution[y][x];
@@ -219,7 +211,7 @@ void _decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n
     if (valeur != VIDE)
     {
         tableau_courant[y][x] = valeur;
-        *cases_decouvertes = *cases_decouvertes + 1;
+        *cases_decouvertes = (*cases_decouvertes) + 1;
         return;
     }
 
@@ -229,7 +221,7 @@ void _decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n
         return;
     }
     tableau_courant[y][x] = DECOUVERT;
-    *cases_decouvertes = *cases_decouvertes + 1;
+    *cases_decouvertes = (*cases_decouvertes) + 1;
     for (int i = y - 1; i < y + 2; i++)
     {
         if (i < 0 || i >= m)
@@ -242,7 +234,7 @@ void _decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n
             {
                 continue;
             }
-            _decouvrir_case(tableau_courant, tableau_solution, m, n, i, j, iteration + 1, &cases_decouvertes);
+            _decouvrir_case(tableau_courant, tableau_solution, m, n, i, j, iteration + 1, cases_decouvertes);
         }
     }
     if (iteration == 0)
@@ -258,6 +250,14 @@ void _decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n
             }
         }
     }
+}
+
+int decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n, int y, int x)
+{
+    assert(x >= 0 && x < n && y >= 0 && y < m);
+    int cases_decouvertes = 0;
+    _decouvrir_case(tableau_courant, tableau_solution, m, n, y, x, 0, &cases_decouvertes);
+    return cases_decouvertes;
 }
 
 void liberer_tableau(int **tab, int m)
