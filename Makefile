@@ -9,7 +9,6 @@ NOM_FICHIER= main.c
 # fait appel à des fonctions déclarées dans un fichier .h et définies dans un
 # fichier .c de même nom de base que celui du fichier objet généré en .o.
 # Nom de base : nom du fichier sans extension.
-OBJETS = outils.o
 
 # Donner ci-dessous le nom du fichier exécutable à produire
 NOM_EXECUTABLE= demineur
@@ -17,8 +16,10 @@ NOM_EXECUTABLE= demineur
 # Ligne ci-dessous à conserver
 ifeq ($(UNAME_S),Darwin)
 	OPTIONS = -std=c99 -Wall -Wextra -Wvla -target x86_64-apple-darwin #-fsanitize=address,undefined
+	OBJETS = outils_unix.o
 else
 	OPTIONS = -std=c99 -Wall -Wextra -Wvla #-fsanitize=address,undefined
+	OBJETS = outils_win.o
 endif
 # Règle principale
 all: $(NOM_EXECUTABLE)

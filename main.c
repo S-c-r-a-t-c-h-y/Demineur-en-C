@@ -1,6 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "outils.h"
+
+#ifdef _WIN32
+#include "outils_win.h"
+#else
+#include "outils_unix.h"
+#endif
 
 int main()
 {
