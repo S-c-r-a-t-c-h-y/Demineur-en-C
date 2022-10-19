@@ -13,6 +13,7 @@
 #define PAS_DECOUVERT -3
 #define DECOUVERT -4
 
+
 #ifdef __linux__
 #define CLEAR_SCREEN "clear"
 #elif _WIN32
@@ -26,6 +27,10 @@ void clear_screen()
     system(CLEAR_SCREEN);
 }
 
+const char *bombe = "⚙";
+const char *drapeau = "⚑";
+const char *pas_decouvert = "☐";
+const char vide = ' ';
 void affiche_tableau(int **tab, int hauteur, int largeur)
 {
     for (int i = 0; i < hauteur; i++)
@@ -36,16 +41,16 @@ void affiche_tableau(int **tab, int hauteur, int largeur)
             switch (tab[i][j])
             {
             case BOMBE:
-                print_unicode(bombe);
+                printf("%s", bombe);
                 break;
             case DRAPEAU:
-                print_unicode(drapeau);
+                printf("%s", drapeau);
                 break;
             case VIDE:
                 printf("%c", vide);
                 break;
             case PAS_DECOUVERT:
-                print_unicode(pas_decouvert);
+                printf("%s", pas_decouvert);
                 break;
             default:
                 printf("%d", tab[i][j]);
