@@ -14,12 +14,14 @@ NOM_FICHIER= main.c
 NOM_EXECUTABLE= demineur
 
 # Ligne ci-dessous à conserver
-ifeq ($(UNAME_S),Darwin)
-	OPTIONS = -std=c99 -Wall -Wextra -Wvla -target #-fsanitize=address,undefined
-	OBJETS = outils_unix.o
-else
+ifeq ($(OS),Windows_NT)
 	OPTIONS = -std=c99 -Wall -Wextra -Wvla #-fsanitize=address,undefined
 	OBJETS = outils_win.o
+	do nothing for outils_unix.o
+else
+	OPTIONS = -std=c99 -Wall -Wextra -Wvla #-fsanitize=address,undefined
+	OBJETS = outils_unix.o
+	#do nothing for outils_win.o
 endif
 # Règle principale
 all: $(NOM_EXECUTABLE)
