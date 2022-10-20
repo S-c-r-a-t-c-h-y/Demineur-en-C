@@ -14,7 +14,6 @@
 #define DECOUVERT -4
 #define CASE_ACTUELLE -5
 
-
 #ifdef __linux__
 #define CLEAR_SCREEN "clear"
 #elif _WIN32
@@ -191,8 +190,11 @@ void _decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n
     // la case à découvrir est un chiffre
     if (valeur != VIDE)
     {
-        tableau_courant[y][x] = valeur;
-        *cases_decouvertes = (*cases_decouvertes) + 1;
+        if (tableau_courant[y][x] != valeur)
+        {
+            tableau_courant[y][x] = valeur;
+            *cases_decouvertes = (*cases_decouvertes) + 1;
+        }
         return;
     }
 
