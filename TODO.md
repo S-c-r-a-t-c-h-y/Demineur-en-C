@@ -22,3 +22,8 @@
 
 - d'abord hauteur ensuite largeur
 - tab[i][j] = ième ligne, jème colonne
+
+## Autre
+
+- écrire la documentation des fonctions
+- éventuellement rajouter des commentaires dans le code des fonctions
