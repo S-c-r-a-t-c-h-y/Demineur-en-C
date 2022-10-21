@@ -23,6 +23,8 @@ const int drapeau = 0x2691;
 const int pas_decouvert = 0x2610;
 // U+2612
 
+/* Les spécifications des fonctions se trouvent dans le fichier outils_win.h */
+
 void print_unicode(int unicode_code)
 {
     // défini l'encodage de la console en UTF-16
