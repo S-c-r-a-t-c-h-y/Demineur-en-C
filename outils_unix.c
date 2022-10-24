@@ -30,7 +30,7 @@ void clear_screen()
 const char *bombe = "⚙";
 const char *drapeau = "⚑";
 const char *pas_decouvert = "☐";
-const char *case_actuelle = "☒";
+const char *case_actuelle = "◮"; //⟡
 const char vide = ' ';
 void affiche_tableau(int **tab, int hauteur, int largeur)
 {
@@ -250,4 +250,47 @@ void liberer_tableau(int **tab, int m)
         free(tab[i]);
     }
     free(tab);
+}
+
+void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed) 
+{
+    tab[position[0]][position[1]]= *ancienne_var;
+    switch (key_pressed)
+    {
+    case 'Z':
+        position[0] ++;
+        break;
+    case 'Q':
+        position[1] --;
+        break;
+    case 'S':
+        position[0] --;
+        break;
+    case 'D':
+        position[1] ++;
+    default: // SI autre touche rappeler fonction input deplacement
+        break;
+    }
+    if (position[0] < 0)
+    {
+        position[0] = m-1;
+    }
+    else if (position[0] >= m)
+    {
+        position[0] = 0;
+    }
+    else if (position[1] < 0)
+    {
+        position[1] = n-1;
+    }
+    else if (position[1] >= n)
+    {
+        position[1] = 0;
+    }
+    int temp_var = tab[position[0]][position[1]];
+    ancienne_var = &temp_var;
+    tab[position[0]][position[1]] = -5;
+    clear_screen();
+    affiche_tableau(tab, m, n);
+    
 }

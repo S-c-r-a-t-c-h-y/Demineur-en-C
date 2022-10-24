@@ -19,12 +19,23 @@ int main()
 
     int **tableau_courant = creer_tableau(m, n);
     initialiser_tableau_courant(tableau_courant, m, n);
-    int temp_case = tableau_courant[0][0];
-    int *position_case_actuelle = &tableau_courant[0][0];
-    *position_case_actuelle = -5;
-    
+    int temp_val = tableau_courant[0][0];
+    int *position = (int *)malloc(sizeof(int) * 2);
+    position[0] = 0; //y
+    position[1] = 0; //x
+    int *temp_val_case = &temp_val;
+    tableau_courant[0][0] = -5;
     affiche_tableau(tableau_solution, m, n);
-    *position_case_actuelle = temp_case;
+    for (int i = 0; i < 7; i++)
+    {
+        char buffer[256];
+        printf("Où souhaitez vous aller ?\t");
+        scanf("%s", buffer);
+        printf("%c", buffer[0]);
+        printf("ici");
+        deplace_pointeur(tableau_courant, m, n, 0, 0, temp_val_case, buffer[0]);
+    }
+    
     affiche_tableau(tableau_courant, m, n);
     printf("%d\n", decouvrir_case(tableau_courant, tableau_solution, m, n, 0, 0));
 
