@@ -268,12 +268,11 @@ int jeu_fini(int **tab_sol, int **tab_courant, int m, int n)
     return 1;
 }
 
-void death_wave();
-
 void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, int *death_wave)
 {
     int temp_points = decouvrir_case(tab, tab_sol, m, n, position[0], position[1]);
     affiche_tableau(tab, m, n);
+    clear_screen();
     ancienne_var = tab_sol[position[0]][position[1]];
     if (temp_points == -1)
     {
@@ -289,6 +288,7 @@ void put_flag()
 void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave)
 {
     tab[position[0]][position[1]] = *ancienne_var;
+    clear_screen();
     switch (toupper(key_pressed))
     {
     case 'Z':
@@ -331,6 +331,5 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
     int temp_var = tab[position[0]][position[1]];
     ancienne_var = &temp_var;
     tab[position[0]][position[1]] = -5;
-    //clear_screen();
     affiche_tableau(tab, m, n);
 }
