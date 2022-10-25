@@ -4,6 +4,8 @@
 #include <assert.h>
 #include <wchar.h>
 #include <fcntl.h>
+#include "ANSI-color-codes.h"
+
 #define UTF_16_ENCODING 0x00020000
 #define NORMAL_ENCODING 0x4000
 
@@ -14,13 +16,7 @@
 #define DECOUVERT -4
 #define CASE_ACTUELLE -5
 
-#ifdef __linux__
 #define CLEAR_SCREEN "clear"
-#elif _WIN32
-#define CLEAR_SCREEN "cls"
-#elif __APPLE__
-#define CLEAR_SCREEN "clear"
-#endif
 
 void clear_screen()
 {
@@ -32,6 +28,9 @@ const char *drapeau = "⚑";
 const char *pas_decouvert = "☐";
 const char *case_actuelle = "◮"; //⟡
 const char vide = ' ';
+
+const char couleurs[8][8] = {BBLU, BGRN, BRED, BMAG, BYEL, BCYN, BBLK, HBLK};
+
 void affiche_tableau(int **tab, int hauteur, int largeur)
 {
     for (int i = 0; i < hauteur; i++)
@@ -57,7 +56,7 @@ void affiche_tableau(int **tab, int hauteur, int largeur)
                 printf("%s", pas_decouvert);
                 break;
             default:
-                printf("%d", tab[i][j]);
+                printf("%s%d%s", couleurs[tab[i][j] - 1], tab[i][j], reset);
                 break;
             }
         }
@@ -252,28 +251,28 @@ void liberer_tableau(int **tab, int m)
     free(tab);
 }
 
-void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed) 
+void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed)
 {
-    tab[position[0]][position[1]]= *ancienne_var;
+    tab[position[0]][position[1]] = *ancienne_var;
     switch (key_pressed)
     {
     case 'Z':
-        position[0] ++;
+        position[0]++;
         break;
     case 'Q':
-        position[1] --;
+        position[1]--;
         break;
     case 'S':
-        position[0] --;
+        position[0]--;
         break;
     case 'D':
-        position[1] ++;
+        position[1]++;
     default: // SI autre touche rappeler fonction input deplacement
         break;
     }
     if (position[0] < 0)
     {
-        position[0] = m-1;
+        position[0] = m - 1;
     }
     else if (position[0] >= m)
     {
@@ -281,7 +280,7 @@ void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var,
     }
     else if (position[1] < 0)
     {
-        position[1] = n-1;
+        position[1] = n - 1;
     }
     else if (position[1] >= n)
     {
@@ -292,5 +291,4 @@ void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var,
     tab[position[0]][position[1]] = -5;
     clear_screen();
     affiche_tableau(tab, m, n);
-    
 }

@@ -5,6 +5,7 @@
 #include <io.h>
 #include <fcntl.h>
 #include <wchar.h>
+#include "ANSI-color-codes.h"
 
 #define UTF_16_ENCODING 0x00020000
 #define NORMAL_ENCODING 0x4000
@@ -14,6 +15,7 @@
 #define VIDE 0
 #define PAS_DECOUVERT -3
 #define DECOUVERT -4
+#define CASE_ACTUELLE -5
 
 #define CLEAR_SCREEN "cls"
 
@@ -21,7 +23,9 @@ const char vide = ' ';
 const int bombe = 0x2699;
 const int drapeau = 0x2691;
 const int pas_decouvert = 0x2610;
-// U+2612
+const int case_actuelle = 0x25EE;
+
+const char couleurs[8][8] = {BBLU, BGRN, BRED, BMAG, BYEL, BCYN, BBLK, HBLK};
 
 /* Les spécifications des fonctions se trouvent dans le fichier outils_win.h */
 
@@ -51,6 +55,9 @@ void affiche_tableau(int **tab, int hauteur, int largeur)
             printf(" ");
             switch (tab[i][j])
             {
+            case CASE_ACTUELLE:
+                print_unicode(case_actuelle);
+                break;
             case BOMBE:
                 print_unicode(bombe);
                 break;
@@ -64,7 +71,7 @@ void affiche_tableau(int **tab, int hauteur, int largeur)
                 print_unicode(pas_decouvert);
                 break;
             default:
-                printf("%d", tab[i][j]);
+                printf("%s%d%s", couleurs[tab[i][j] - 1], tab[i][j], reset);
                 break;
             }
         }
@@ -257,4 +264,46 @@ void liberer_tableau(int **tab, int m)
         free(tab[i]);
     }
     free(tab);
+}
+
+void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed)
+{
+    tab[position[0]][position[1]] = *ancienne_var;
+    switch (key_pressed)
+    {
+    case 'Z':
+        position[0]++;
+        break;
+    case 'Q':
+        position[1]--;
+        break;
+    case 'S':
+        position[0]--;
+        break;
+    case 'D':
+        position[1]++;
+    default: // SI autre touche rappeler fonction input deplacement
+        break;
+    }
+    if (position[0] < 0)
+    {
+        position[0] = m - 1;
+    }
+    else if (position[0] >= m)
+    {
+        position[0] = 0;
+    }
+    else if (position[1] < 0)
+    {
+        position[1] = n - 1;
+    }
+    else if (position[1] >= n)
+    {
+        position[1] = 0;
+    }
+    int temp_var = tab[position[0]][position[1]];
+    ancienne_var = &temp_var;
+    tab[position[0]][position[1]] = -5;
+    clear_screen();
+    affiche_tableau(tab, m, n);
 }
