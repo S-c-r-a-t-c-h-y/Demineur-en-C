@@ -257,13 +257,13 @@ void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var,
     switch (key_pressed)
     {
     case 'Z':
-        position[0]++;
+        position[0]--;
         break;
     case 'Q':
         position[1]--;
         break;
     case 'S':
-        position[0]--;
+        position[0]++;
         break;
     case 'D':
         position[1]++;

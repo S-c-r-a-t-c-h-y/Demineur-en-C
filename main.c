@@ -26,15 +26,43 @@ int main()
     int *temp_val_case = &temp_val;
     tableau_courant[0][0] = -5;
     affiche_tableau(tableau_solution, m, n);
-    for (int i = 0; i < 7; i++)
-    {
-        char buffer[256];
-        printf("Ou souhaitez vous aller ?\t");
-        scanf("%s", buffer);
-        printf("%c", buffer[0]);
-        printf("ici");
-        deplace_pointeur(tableau_courant, m, n, 0, 0, temp_val_case, buffer[0]);
+    affiche_tableau(tableau_courant, m, n);
+    char buffer[256];
+    while (1) {
+        printf("Où souhaitez-vous aller ? ");
+        scanf("%255s", buffer);
+        printf("Lettre choisie %c, n'est pas ?\n", buffer[0]);
+        deplace_pointeur(tableau_courant, m, n, position, temp_val_case, buffer[0]);
     }
+    
+    
+    char nom[50];
+    char prenom[50];
+    int res;
+    printf("Saisissez votre nom suivi de votre prénom : ");
+    res = scanf("%49s%49s", nom, prenom);
+    if(res == 2)
+        printf("Vous vous appelez %s %s, est-ce correct ?\n", prenom, nom);
+    else
+        printf("Vous avez fait une erreur lors de la saisie.\n");
+    /*char buffer[256];
+    printf("Entre une lettre : \n");
+    scanf("%s", buffer);
+    printf("%s", buffer);*/
+    /*while (longueur(buffer, 256) > 1)
+    {
+        printf("Entre une seule lettre : \n");
+        scanf("%s", buffer);
+    }*/
+    /*while (!isalpha(buffer[0]))
+    {
+        printf("Entre une lettre de l'alphabet : \n");
+        scanf("%s", buffer);
+    }*/
+    printf("ici");
+    printf("Ou souhaitez vous aller ? ");
+    printf("ici2 ");
+    /*deplace_pointeur(tableau_courant, m, n, 0, 0, temp_val_case, buffer[0]);*/
 
     affiche_tableau(tableau_courant, m, n);
     printf("%d\n", decouvrir_case(tableau_courant, tableau_solution, m, n, 0, 0));
