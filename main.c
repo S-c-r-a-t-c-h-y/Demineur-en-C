@@ -7,6 +7,29 @@
 #include "outils_unix.h"
 #endif
 
+void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *position, int *temp_val_case)
+{
+    char buffer[256];
+    int dead = 0;
+    int *death_wave = &dead;
+    while (!jeu_fini(tableau_solution, tableau_courant, m, n) || *death_wave) 
+    {
+        printf("Où souhaitez-vous aller ? ");
+        scanf("%255s", buffer);
+        printf("Lettre choisie %c, n'est pas ?\n", buffer[0]);
+        action_clavier(tableau_solution, tableau_courant, m, n, position, temp_val_case, buffer[0], death_wave);
+    }
+    if (death_wave)
+    {
+        printf("Tu as perdu ;(");
+    }
+    else
+    {
+        printf("Tu as gagné ;)");
+    }
+    
+}
+
 int main()
 {
     int m = 10;         // nombre de lignes du tableau
@@ -17,6 +40,7 @@ int main()
     int **tableau_solution = creer_tableau(m, n);
     initialiser_tableau_solution(tableau_solution, m, n, nb_bombes);
 
+    // le tableau courant est le plateau de jeu vu par le joueur, qui est donc découvert au fur et à mesure
     int **tableau_courant = creer_tableau(m, n);
     initialiser_tableau_courant(tableau_courant, m, n);
     int temp_val = tableau_courant[0][0];
@@ -27,45 +51,12 @@ int main()
     tableau_courant[0][0] = -5;
     affiche_tableau(tableau_solution, m, n);
     affiche_tableau(tableau_courant, m, n);
-    char buffer[256];
-    while (1) {
-        printf("Où souhaitez-vous aller ? ");
-        scanf("%255s", buffer);
-        printf("Lettre choisie %c, n'est pas ?\n", buffer[0]);
-        deplace_pointeur(tableau_courant, m, n, position, temp_val_case, buffer[0]);
-    }
-    
-    
-    char nom[50];
-    char prenom[50];
-    int res;
-    printf("Saisissez votre nom suivi de votre prénom : ");
-    res = scanf("%49s%49s", nom, prenom);
-    if(res == 2)
-        printf("Vous vous appelez %s %s, est-ce correct ?\n", prenom, nom);
-    else
-        printf("Vous avez fait une erreur lors de la saisie.\n");
-    /*char buffer[256];
-    printf("Entre une lettre : \n");
-    scanf("%s", buffer);
-    printf("%s", buffer);*/
-    /*while (longueur(buffer, 256) > 1)
-    {
-        printf("Entre une seule lettre : \n");
-        scanf("%s", buffer);
-    }*/
-    /*while (!isalpha(buffer[0]))
-    {
-        printf("Entre une lettre de l'alphabet : \n");
-        scanf("%s", buffer);
-    }*/
-    printf("ici");
-    printf("Ou souhaitez vous aller ? ");
-    printf("ici2 ");
-    /*deplace_pointeur(tableau_courant, m, n, 0, 0, temp_val_case, buffer[0]);*/
+    jeu(tableau_solution, tableau_courant, m, n, position, temp_val_case);
 
     affiche_tableau(tableau_courant, m, n);
-    printf("%d\n", decouvrir_case(tableau_courant, tableau_solution, m, n, 0, 0));
+    decouvrir_case(tableau_courant, tableau_solution, m, n, 4, 4);
+
+    //printf("%d\n", decouvrir_case(tableau_courant, tableau_solution, m, n, 0, 0));
 
     affiche_tableau(tableau_courant, m, n);
 

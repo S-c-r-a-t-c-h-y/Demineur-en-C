@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h> //Pour pouvoir mettre en majuscule les caractères ASCII
 #include <time.h>
 #include <assert.h>
 #include <wchar.h>
@@ -251,10 +252,43 @@ void liberer_tableau(int **tab, int m)
     free(tab);
 }
 
-void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed)
+int jeu_fini(int **tab_sol, int **tab_courant, int m, int n)
+{
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (tab_sol[i][j] != tab_courant[i][j]) 
+            {
+                return 0;
+            }
+        }
+        
+    }
+    return 1;
+}
+
+void death_wave();
+
+void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, death_wave)
+{
+    int temp_points = decouvrir_case(tab, tab_sol, m, n, position[0], position[1]);
+    affiche_tableau(tab, m, n);
+    if (temp_points == -1)
+    {
+        death_wave = 1;
+    }
+}
+
+void put_flag()
+{
+    printf("&&&&&&&&");
+}
+
+void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave)
 {
     tab[position[0]][position[1]] = *ancienne_var;
-    switch (key_pressed)
+    switch (toupper(key_pressed))
     {
     case 'Z':
         position[0]--;
@@ -267,7 +301,14 @@ void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var,
         break;
     case 'D':
         position[1]++;
+    case '@':
+        dig_hole(tab_sol, tab, m, n, position, death_wave);
+        break;
+    case '&':
+        put_flag();
+        break;
     default: // SI autre touche rappeler fonction input deplacement
+        printf("Mmm, je ne connais pas %c, peux tu réessayer ?\n", key_pressed);
         break;
     }
     if (position[0] < 0)
@@ -289,6 +330,6 @@ void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var,
     int temp_var = tab[position[0]][position[1]];
     ancienne_var = &temp_var;
     tab[position[0]][position[1]] = -5;
-    clear_screen();
+    //clear_screen();
     affiche_tableau(tab, m, n);
 }
