@@ -270,13 +270,14 @@ int jeu_fini(int **tab_sol, int **tab_courant, int m, int n)
 
 void death_wave();
 
-void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, death_wave)
+void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, int *death_wave)
 {
     int temp_points = decouvrir_case(tab, tab_sol, m, n, position[0], position[1]);
     affiche_tableau(tab, m, n);
+    ancienne_var = tab_sol[position[0]][position[1]];
     if (temp_points == -1)
     {
-        death_wave = 1;
+        *death_wave = 1;
     }
 }
 
@@ -302,7 +303,7 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
     case 'D':
         position[1]++;
     case '@':
-        dig_hole(tab_sol, tab, m, n, position, death_wave);
+        dig_hole(tab_sol, tab, m, n, position, ancienne_var, death_wave);
         break;
     case '&':
         put_flag();

@@ -16,7 +16,6 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
     {
         printf("Où souhaitez-vous aller ? ");
         scanf("%255s", buffer);
-        printf("Lettre choisie %c, n'est pas ?\n", buffer[0]);
         action_clavier(tableau_solution, tableau_courant, m, n, position, temp_val_case, buffer[0], death_wave);
     }
     if (death_wave)
