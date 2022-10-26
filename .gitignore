@@ -55,5 +55,5 @@ dkms.conf
 # macOS config files
 .DS_Store
 
-# VScode config files
+# VSCode config files
 .vscode
