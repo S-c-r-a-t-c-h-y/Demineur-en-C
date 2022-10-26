@@ -16,25 +16,30 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
     int *death_wave = &dead;
     printf("Utilises les touches\n-Z,Q,S,D pour te déplacer,\n-@ pour creuser,\n-& pour mettre un drapeau\n");
     printf("Si durant le jeu tu ne te rappelles plus de ces commandes,\ntapes ! pour qu'elles te soient rappellees\n");
-    printf("Tu es prêt ?\nAppuies sur n'importe quelle touche pour commencer : ");
+    printf("Tu es prêt ?\nAppuies sur n'importe quelle touche pour commencer puis appuie sur la touche Entree : ");
     char temp_buffer[64];
     scanf("%s", temp_buffer);
-    printf("Voici ton tableau de jeu, tu pars d'en haut à gauche\n");
+    clear_screen();
     affiche_tableau(tableau_courant, m, n);
+    printf("Voici ton tableau de jeu, tu pars d'en haut à gauche\n");
     while (*death_wave != 1 && jeu_fini(tableau_solution, tableau_courant, m, n) != 1)
     {
-        printf("Tapes Z,Q,S,D ou @,& ou bien !");
+        printf("Tapes Z,Q,S,D ou @,& ou bien ! puis Entree : ");
         scanf("%255s", buffer);
         action_clavier(tableau_solution, tableau_courant, m, n, position, temp_val_case, buffer[0], death_wave);
     }
     if (*death_wave)
     {
-        printf("Tu as perdu ;(\n");
+        printf("Oh non je suis si triste tu as perdu ;(\n");
+        printf("Souhaites tu recommencer ?\n");
+        // Demander oui non
     }
     else
     {
-        printf("Tu as gagne ;)\n");
+        printf("Bravo, tu as gagne ;)\n");
+        printf("J'espere que tu n'es pas un nostalgique de MS-DOS, parce que Linux c'est mieux ;)\n");
     }
+    printf("A une prochaine fois peut-être !\n");
     liberer_tableau(tableau_solution, m);
     liberer_tableau(tableau_courant, m);
 }
