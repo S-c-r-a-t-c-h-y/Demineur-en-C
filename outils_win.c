@@ -272,11 +272,7 @@ int jeu_fini(int **tab_sol, int **tab_courant, int m, int n)
     {
         for (int j = 0; j < n; j++)
         {
-            if (tab_sol[i][j] == -1 && tab_courant[i][j] != -2)
-            {
-                return 0;
-            }
-            else if (tab_sol[i][j] != tab_courant[i][j] && tab_courant[i][j] != -2)
+            if ((tab_sol[i][j] == BOMBE && tab_courant[i][j] != DRAPEAU) || (tab_sol[i][j] != BOMBE && tab_courant[i][j] == DRAPEAU))
             {
                 return 0;
             }
@@ -366,7 +362,7 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
         put_flag(tab, m, n, position, ancienne_var); // ajouter compteur flag à afficher
         break;
     default: // SI autre touche rappeler fonction input deplacement
-        printf("Mmm, je ne connais pas %c, peux tu réessayer ?\n",
+        printf("Mmm, je ne connais pas %c, peux tu reessayer ?\n",
                key_pressed);
         break;
     }
