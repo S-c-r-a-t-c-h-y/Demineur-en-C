@@ -10,12 +10,12 @@
   - ~~initialiser à vide~~
   - ~~récupérer les données dans le tableau solution~~
 - ~~créer une fonction qui affiche le tableau~~
-- créer une fonction qui gère les entrées de l'utilisateur (avec les touches ZQSD, touche valider, touche drapeau)
+- ~~créer une fonction qui gère les entrées de l'utilisateur (avec les touches ZQSD, touche valider, touche drapeau)~~
 
 ## Gameplay
 
 - nombre des lignes et colonnes choisis
-- niveau de difficulté (nombres de bombes)
+- ~~niveau de difficulté (nombres de bombes)~
 - (drapeaux)
 
 ## Conventions
