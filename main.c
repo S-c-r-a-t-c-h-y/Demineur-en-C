@@ -15,9 +15,9 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
     int *compteur_flag = &flag;
     int *death_wave = &dead;
     printf("Utilises les touches Z,Q,S,D pour te déplacer, @ pour creuser et & pour mettre un drapeau\n");
-    printf("Si durant le jeu tu ne vous rappelles plus de ces commandes, tapes ! pour qu'elles soient rappellees\n");
+    printf("Si durant le jeu tu ne te rappelles plus de ces commandes, tapes ! pour qu'elles soient rappellees\n");
     printf("Tu es prêt ?\n3...\n2...\n1...\nC'est parti !\n");
-    printf("Voici ton tableau de jeu, tu pars d'en haut à gauche");
+    printf("Voici ton tableau de jeu, tu pars d'en haut à gauche\n");
     affiche_tableau(tableau_courant, m, n);
     while (*death_wave != 1 && jeu_fini(tableau_solution, tableau_courant, m, n) != 1)
     {
@@ -82,7 +82,7 @@ void initialisation_plateau()
         printf("Pour des raisons de confort d'utilisation, la selection est limitee a 100x100 cases maximum et 1000 bombes\n");
         break;
     default:
-        printf("Mmm, je ne suis pas sur que %c, soit un nombre entre 1 et 6, reessayons !", buffer_partie[0]);
+        printf("Mmm, je ne suis pas sur que %c, soit un nombre entre 1 et 6, reessayons !\n", buffer_partie[0]);
         initialisation_plateau();
         break;
     }
