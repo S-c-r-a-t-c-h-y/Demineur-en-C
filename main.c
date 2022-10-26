@@ -14,9 +14,11 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
     int flag = 0;
     int *compteur_flag = &flag;
     int *death_wave = &dead;
-    printf("Utilises les touches Z,Q,S,D pour te déplacer, @ pour creuser et & pour mettre un drapeau\n");
-    printf("Si durant le jeu tu ne te rappelles plus de ces commandes, tapes ! pour qu'elles soient rappellees\n");
-    printf("Tu es prêt ?\n3...\n2...\n1...\nC'est parti !\n");
+    printf("Utilises les touches\n-Z,Q,S,D pour te déplacer,\n-@ pour creuser,\n-& pour mettre un drapeau\n");
+    printf("Si durant le jeu tu ne te rappelles plus de ces commandes,\ntapes ! pour qu'elles te soient rappellees\n");
+    printf("Tu es prêt ?\nAppuies sur n'importe quelle touche pour commencer : ");
+    char temp_buffer[64];
+    scanf("%s", temp_buffer);
     printf("Voici ton tableau de jeu, tu pars d'en haut à gauche\n");
     affiche_tableau(tableau_courant, m, n);
     while (*death_wave != 1 && jeu_fini(tableau_solution, tableau_courant, m, n) != 1)
@@ -63,19 +65,19 @@ void initialisation_plateau()
         printf("Ok on y va pour une partie dure !\n");
         m = 10;
         n = 10;
-        bombes = 20;
+        bombes = 21;
         break;
     case '4':
         printf("Ok on y va pour une partie horrible !\n");
         m = 15;
         n = 15;
-        bombes = 30;
+        bombes = 42;
         break;
     case '5':
         printf("Ok on y va pour une partie infaisable !\n");
         m = 21;
         n = 21;
-        bombes = 42;
+        bombes = 84;
         break;
     case '6':
         printf("Ok tu es donc prêt à trifouiller le système, à tes risques et perils !\n");
@@ -111,11 +113,11 @@ void start()
     printf("2-----MOYEN-----");
     printf("Un jeu de 7x7 cases, 10 mines\n");
     printf("3-----DUR-----");
-    printf("Un jeu de 10x10 cases, 20 mines\n");
+    printf("Un jeu de 10x10 cases, 21 mines\n");
     printf("4-----HORRIBLE-----");
-    printf("Un jeu de 15x15 cases, 30 mines\n");
+    printf("Un jeu de 15x15 cases, 42 mines\n");
     printf("5-----INFAISABLE-----");
-    printf("Un jeu de 21x21 cases, 42 mines\n");
+    printf("Un jeu de 21x21 cases, 84 mines\n");
     printf("6-----MA PROPRE PARTIE-----");
     printf("Choisis tes cases et tes mines\n");
     initialisation_plateau();
