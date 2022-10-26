@@ -16,7 +16,7 @@
 
 - nombre des lignes et colonnes choisis
 - ~~niveau de difficulté (nombres de bombes)~~
-- ~~(drapeaux)
+- ~~(drapeaux)~~
 
 ## Conventions
 
