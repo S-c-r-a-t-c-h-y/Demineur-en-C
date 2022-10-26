@@ -318,6 +318,21 @@ void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var)
     affiche_tableau(tab, m, n);
 }
 
+void help()
+{
+    printf("Voici donc un petit rappel des commandes :\n");
+    printf("Pour Z,Q,S,D :\n");
+    printf("\t-Z : Permet de monter d'une case\n");
+    printf("\t-Q : Permet d'aller d'une case vers la gauche\n");
+    printf("\t-S : Permet de descendre d'une case\n");
+    printf("\t-D : Permet d'aller d'une case vers la droite\n");
+    printf("Pour @,& :\n");
+    printf("\t-@ : Permet de creuser la case, attention s'il y a une bombe c'est perdu !\n");
+    printf("\t-& : Permet de mettre un drapeau si l'on suppose que la case contient une bombe\n");
+    printf("##########\n");
+    printf("Rappel : Utilise ! si tu as encore besoin d'aide !\n");
+}
+
 void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave)
 {
     clear_screen();
@@ -349,6 +364,9 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
         break;
     case '&':
         put_flag(tab, m, n, position, ancienne_var); // ajouter compteur flag à afficher
+        break;
+    case '!':
+        help();
         break;
     default: // SI autre touche rappeler fonction input deplacement
         printf("Mmm, je ne connais pas %c, peux tu réessayer ?\n",
