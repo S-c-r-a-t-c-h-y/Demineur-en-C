@@ -15,8 +15,8 @@
 ## Gameplay
 
 - nombre des lignes et colonnes choisis
-- ~~niveau de difficulté (nombres de bombes)~
-- (drapeaux)
+- ~~niveau de difficulté (nombres de bombes)~~
+- ~~(drapeaux)
 
 ## Conventions
 
