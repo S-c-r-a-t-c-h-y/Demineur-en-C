@@ -11,14 +11,17 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
 {
     char buffer[256];
     int dead = 0;
+    int flag = 0;
+    int *compteur_flag = &flag;
     int *death_wave = &dead;
-    while (!jeu_fini(tableau_solution, tableau_courant, m, n) || *death_wave) 
+
+    while (*death_wave != 1 && jeu_fini(tableau_solution, tableau_courant, m, n) != 1)
     {
         printf("Où souhaitez-vous aller ? ");
         scanf("%255s", buffer);
         action_clavier(tableau_solution, tableau_courant, m, n, position, temp_val_case, buffer[0], death_wave);
     }
-    if (death_wave)
+    if (*death_wave)
     {
         printf("Tu as perdu ;(");
     }
@@ -26,7 +29,6 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
     {
         printf("Tu as gagné ;)");
     }
-    
 }
 
 int main()
@@ -47,17 +49,17 @@ int main()
     position[0] = 0; // y
     position[1] = 0; // x
     int *temp_val_case = &temp_val;
-    tableau_courant[0][0] = -5;
+    //tableau_courant[0][0] = -5;
     affiche_tableau(tableau_solution, m, n);
     affiche_tableau(tableau_courant, m, n);
     jeu(tableau_solution, tableau_courant, m, n, position, temp_val_case);
 
-    affiche_tableau(tableau_courant, m, n);
-    decouvrir_case(tableau_courant, tableau_solution, m, n, 4, 4);
+    //affiche_tableau(tableau_courant, m, n);
+    //decouvrir_case(tableau_courant, tableau_solution, m, n, 4, 4);
 
-    //printf("%d\n", decouvrir_case(tableau_courant, tableau_solution, m, n, 0, 0));
+    // printf("%d\n", decouvrir_case(tableau_courant, tableau_solution, m, n, 0, 0));
 
-    affiche_tableau(tableau_courant, m, n);
+    //affiche_tableau(tableau_courant, m, n);
 
     liberer_tableau(tableau_solution, m);
     return 0;
