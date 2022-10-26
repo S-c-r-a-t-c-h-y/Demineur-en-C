@@ -266,25 +266,49 @@ void liberer_tableau(int **tab, int m)
     free(tab);
 }
 
-void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed)
+int jeu_fini(int **tab_sol, int **tab_courant, int m, int n)
 {
-    tab[position[0]][position[1]] = *ancienne_var;
-    switch (key_pressed)
+    for (int i = 0; i < m; i++)
     {
-    case 'Z':
-        position[0]++;
-        break;
-    case 'Q':
-        position[1]--;
-        break;
-    case 'S':
-        position[0]--;
-        break;
-    case 'D':
-        position[1]++;
-    default: // SI autre touche rappeler fonction input deplacement
-        break;
+        for (int j = 0; j < n; j++)
+        {
+            if (tab_sol[i][j] == -1 && tab_courant[i][j] != -2)
+            {
+                return 0;
+            }
+            else if (tab_sol[i][j] != tab_courant[i][j] && tab_courant[i][j] != -2)
+            {
+                return 0;
+            }
+        }
     }
+    return 1;
+}
+
+void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, int *death_wave)
+{
+    if (*ancienne_var == -3)
+    {
+        int temp_points = decouvrir_case(tab, tab_sol, m, n, position[0], position[1]);
+        printf("Temp points vaut %d \n", temp_points);
+        affiche_tableau(tab, m, n);
+        // clear_screen();
+        tab[position[0]][position[1]] = tab_sol[position[0]][position[1]];
+        //*ancienne_var = tab_sol[position[0]][position[1]];
+        if (temp_points == -1)
+        {
+            *death_wave = 1;
+        }
+    }
+}
+
+void put_flag()
+{
+    printf("&&&&&&&&");
+}
+
+void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var)
+{
     if (position[0] < 0)
     {
         position[0] = m - 1;
@@ -304,6 +328,40 @@ void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var,
     int temp_var = tab[position[0]][position[1]];
     ancienne_var = &temp_var;
     tab[position[0]][position[1]] = -5;
-    clear_screen();
     affiche_tableau(tab, m, n);
+}
+void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave)
+{
+    tab[position[0]][position[1]] = *ancienne_var;
+    clear_screen();
+    switch (toupper(key_pressed))
+    {
+    case 'Z':
+        position[0]--;
+        deplace_pointeur(tab, m, n, position, ancienne_var);
+        break;
+    case 'Q':
+        position[1]--;
+        deplace_pointeur(tab, m, n, position, ancienne_var);
+        break;
+    case 'S':
+        position[0]++;
+        deplace_pointeur(tab, m, n, position, ancienne_var);
+        break;
+    case 'D':
+        position[1]++;
+        deplace_pointeur(tab, m, n, position, ancienne_var);
+        break;
+    case '@':
+        dig_hole(tab_sol, tab, m, n, position, ancienne_var, death_wave);
+        // deplace_pointeur(tab, m, n, position, ancienne_var);
+        break;
+    case '&':
+        put_flag();
+        break;
+    default: // SI autre touche rappeler fonction input deplacement
+        printf("Mmm, je ne connais pas %c, peux tu réessayer ?\n",
+               key_pressed);
+        break;
+    }
 }
