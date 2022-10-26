@@ -261,11 +261,7 @@ int jeu_fini(int **tab_sol, int **tab_courant, int m, int n)
     {
         for (int j = 0; j < n; j++)
         {
-            if (tab_sol[i][j] == -1 && tab_courant[i][j] != -2)
-            {
-                return 0;
-            }
-            else if (tab_sol[i][j] != tab_courant[i][j] && tab_courant[i][j] != -2)
+            if ((tab_sol[i][j] == BOMBE && tab_courant[i][j] != DRAPEAU) || (tab_sol[i][j] != BOMBE && tab_courant[i][j] == DRAPEAU))
             {
                 return 0;
             }
