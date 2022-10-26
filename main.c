@@ -20,14 +20,15 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
         printf("Où souhaitez-vous aller ? ");
         scanf("%255s", buffer);
         action_clavier(tableau_solution, tableau_courant, m, n, position, temp_val_case, buffer[0], death_wave);
+        //*temp_val_case = tableau_courant[position[0]][position[1]];
     }
     if (*death_wave)
     {
-        printf("Tu as perdu ;(");
+        printf("Tu as perdu ;(\n");
     }
     else
     {
-        printf("Tu as gagné ;)");
+        printf("Tu as gagné ;)\n");
     }
 }
 

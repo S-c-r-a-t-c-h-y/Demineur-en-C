@@ -276,9 +276,8 @@ int jeu_fini(int **tab_sol, int **tab_courant, int m, int n)
 
 void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, int *death_wave)
 {
-	if (*ancienne_var == -3) {
+	if (*ancienne_var == PAS_DECOUVERT) {
 		int temp_points = decouvrir_case(tab, tab_sol, m, n, position[0], position[1]);
-		printf("Temp points vaut %d \n", temp_points);
 		affiche_tableau(tab, m, n);
 		// clear_screen();
 		tab[position[0]][position[1]] = tab_sol[position[0]][position[1]];
@@ -290,9 +289,13 @@ void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, int *ancien
 	}
 }
 
-void put_flag()
+void put_flag(int **tab, int m, int n, int *position, int *ancienne_var)
 {
-	printf("&&&&&&&&");
+	//printf("La valeur de la case du drapeau est %d\n", tab[position[0]][position[1]]);
+	tab[position[0]][position[1]] = DRAPEAU;
+	//*ancienne_var = DRAPEAU;
+	affiche_tableau(tab, m, n);
+	//printf("APRES COUP, la valeur de la case du drapeau est %d\n", tab[position[0]][position[1]]);
 }
 
 void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var)
@@ -313,15 +316,18 @@ void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var)
 	{
 		position[1] = 0;
 	}
-	int temp_var = tab[position[0]][position[1]];
-	ancienne_var = &temp_var;
-	tab[position[0]][position[1]] = -5;
+	*ancienne_var = tab[position[0]][position[1]];
+	tab[position[0]][position[1]] = CASE_ACTUELLE;
 	affiche_tableau(tab, m, n);
 }
+
 void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave)
 {
-	tab[position[0]][position[1]] = *ancienne_var;
 	clear_screen();
+	if (tab[position[0]][position[1]] == CASE_ACTUELLE)
+	{
+		tab[position[0]][position[1]] = *ancienne_var;
+	}
 	switch (toupper(key_pressed))
 	{
 	case 'Z':
@@ -345,7 +351,7 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
 		// deplace_pointeur(tab, m, n, position, ancienne_var);
 		break;
 	case '&':
-		put_flag();
+		put_flag(tab, m, n, position, ancienne_var); //ajouter compteur flag à afficher
 		break;
 	default: // SI autre touche rappeler fonction input deplacement
 		printf("Mmm, je ne connais pas %c, peux tu réessayer ?\n",
