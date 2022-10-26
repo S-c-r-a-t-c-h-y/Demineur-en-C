@@ -324,7 +324,7 @@ void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var)
     affiche_tableau(tab, m, n);
 }
 
-void help()
+void help(int **tab, int m, int n)
 {
     printf("Voici donc un petit rappel des commandes :\n");
     printf("Pour Z,Q,S,D :\n");
@@ -333,10 +333,15 @@ void help()
     printf("\t-S : Permet de descendre d'une case\n");
     printf("\t-D : Permet d'aller d'une case vers la droite\n");
     printf("Pour @,& :\n");
-    printf("\t-@ : Permet de creuser la case, attention s'il y a une bombe c'est perdu !\n");
-    printf("\t-& : Permet de mettre un drapeau si l'on suppose que la case contient une bombe\n");
+    printf("\t-@ : Permet de creuser la case,\nattention s'il y a une bombe c'est perdu !\n");
+    printf("\t-& : Permet de mettre un drapeau,\nsi l'on suppose que la case contient une bombe\n");
     printf("##########\n");
     printf("Rappel : Utilise ! si tu as encore besoin d'aide !\n");
+    printf("Tu es prêt ?\nAppuies sur n'importe quelle touche pour commencer puis appuie sur la touche Entree : ");
+    char temp_buffer[64];
+    scanf("%s", temp_buffer);
+    clear_screen();
+    affiche_tableau(tab, m, n);
 }
 
 void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave)
@@ -371,7 +376,7 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
         put_flag(tab, m, n, position, ancienne_var); // ajouter compteur flag à afficher
         break;
     case '!':
-        help();
+        help(tab, m, n);
         break;
     default: // si une autre touchee a ete pressee
         printf("Mmm, je ne connais pas %c, peux tu reessayer ?\n",
