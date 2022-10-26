@@ -14,14 +14,14 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
     int flag = 0;
     int *compteur_flag = &flag;
     int *death_wave = &dead;
-    printf("Utilisez les touches Z,Q,S,D pour vous déplacer, @ pour creuser et & pour mettre un drapeau\n");
-    printf("Si durant le jeu vous ne vous rappelez plus de ces commandes, tapez ! pour qu'elles soient rappellees\n");
-    printf("Vous êtes prêts ?\n3...\n2...\n1...\nC'est parti !\n");
-    printf("Voici votre tableau de jeu, vous partez d'en haut à gauche");
+    printf("Utilises les touches Z,Q,S,D pour te déplacer, @ pour creuser et & pour mettre un drapeau\n");
+    printf("Si durant le jeu tu ne vous rappelles plus de ces commandes, tapes ! pour qu'elles soient rappellees\n");
+    printf("Tu es prêt ?\n3...\n2...\n1...\nC'est parti !\n");
+    printf("Voici ton tableau de jeu, tu pars d'en haut à gauche");
     affiche_tableau(tableau_courant, m, n);
     while (*death_wave != 1 && jeu_fini(tableau_solution, tableau_courant, m, n) != 1)
     {
-        printf("Tapez Z,Q,S,D ou @,& ou bien !");
+        printf("Tapes Z,Q,S,D ou @,& ou bien !");
         scanf("%255s", buffer);
         action_clavier(tableau_solution, tableau_courant, m, n, position, temp_val_case, buffer[0], death_wave);
     }
@@ -31,7 +31,7 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
     }
     else
     {
-        printf("Tu as gagné ;)\n");
+        printf("Tu as gagne ;)\n");
     }
     liberer_tableau(tableau_solution, m);
     liberer_tableau(tableau_courant, m);
@@ -40,7 +40,7 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
 void initialisation_plateau() 
 {
     char buffer_partie[64];
-    printf("Que souhaitez vous faire ?\nMerci de chosir un nombre entre 1 et 6 : ");
+    printf("Que souhaites tu faire ?\nChoisis un nombre entre 1 et 6 : ");
     scanf("%s", buffer_partie);
     int bombes = 21; // nombre de bombes dans le tableau
     int m = 21;      // nombre de lignes du tableau
@@ -78,7 +78,7 @@ void initialisation_plateau()
         bombes = 42;
         break;
     case '6':
-        printf("Ok vous êtes donc prêt à trifouiller le système, à vos riques et périls !\n");
+        printf("Ok tu es donc prêt à trifouiller le système, à tes risques et perils !\n");
         printf("Pour des raisons de confort d'utilisation, la selection est limitee a 100x100 cases maximum et 1000 bombes\n");
         break;
     default:
@@ -117,7 +117,7 @@ void start()
     printf("5-----INFAISABLE-----");
     printf("Un jeu de 21x21 cases, 42 mines\n");
     printf("6-----MA PROPRE PARTIE-----");
-    printf("Choississez vos cases et vos mines\n");
+    printf("Choisis tes cases et tes mines\n");
     initialisation_plateau();
 }
 
