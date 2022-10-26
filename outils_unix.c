@@ -276,9 +276,7 @@ void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, int *ancien
     {
         int temp_points = decouvrir_case(tab, tab_sol, m, n, position[0], position[1]);
         affiche_tableau(tab, m, n);
-        // clear_screen();
         tab[position[0]][position[1]] = tab_sol[position[0]][position[1]];
-        //*ancienne_var = tab_sol[position[0]][position[1]];
         if (temp_points == -1)
         {
             *death_wave = 1;
@@ -288,11 +286,8 @@ void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, int *ancien
 
 void put_flag(int **tab, int m, int n, int *position, int *ancienne_var)
 {
-    // printf("La valeur de la case du drapeau est %d\n", tab[position[0]][position[1]]);
     tab[position[0]][position[1]] = DRAPEAU;
-    //*ancienne_var = DRAPEAU;
     affiche_tableau(tab, m, n);
-    // printf("APRES COUP, la valeur de la case du drapeau est %d\n", tab[position[0]][position[1]]);
 }
 
 void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var)
@@ -360,7 +355,6 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
         break;
     case '@':
         dig_hole(tab_sol, tab, m, n, position, ancienne_var, death_wave);
-        // deplace_pointeur(tab, m, n, position, ancienne_var);
         break;
     case '&':
         put_flag(tab, m, n, position, ancienne_var); // ajouter compteur flag à afficher
@@ -368,7 +362,7 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
     case '!':
         help();
         break;
-    default: // SI autre touche rappeler fonction input deplacement
+    default: // si une autre touchee a ete pressee
         printf("Mmm, je ne connais pas %c, peux tu réessayer ?\n",
                key_pressed);
         break;
