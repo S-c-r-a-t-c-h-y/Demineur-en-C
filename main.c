@@ -55,13 +55,6 @@ int main()
     affiche_tableau(tableau_courant, m, n);
     jeu(tableau_solution, tableau_courant, m, n, position, temp_val_case);
 
-    // affiche_tableau(tableau_courant, m, n);
-    // decouvrir_case(tableau_courant, tableau_solution, m, n, 4, 4);
-
-    // printf("%d\n", decouvrir_case(tableau_courant, tableau_solution, m, n, 0, 0));
-
-    // affiche_tableau(tableau_courant, m, n);
-
     liberer_tableau(tableau_solution, m);
     liberer_tableau(tableau_courant, m);
     return 0;
