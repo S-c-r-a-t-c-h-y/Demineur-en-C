@@ -94,6 +94,7 @@ void initialiser_tableau_courant(int **tab, int m, int n)
             tab[i][j] = PAS_DECOUVERT;
         }
     }
+    tab[0][0] = CASE_ACTUELLE;
 }
 
 void initialiser_tableau_solution(int **tab, int m, int n, int nombre_bombes)

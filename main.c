@@ -14,14 +14,14 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
     int flag = 0;
     int *compteur_flag = &flag;
     int *death_wave = &dead;
-    printf("Utilises les touches\n-Z,Q,S,D pour te déplacer,\n-@ pour creuser,\n-& pour mettre un drapeau\n");
+    printf("Utilises les touches\n-Z,Q,S,D pour te deplacer,\n-@ pour creuser,\n-& pour mettre un drapeau\n");
     printf("Si durant le jeu tu ne te rappelles plus de ces commandes,\ntapes ! pour qu'elles te soient rappellees\n");
-    printf("Tu es prêt ?\nAppuies sur n'importe quelle touche pour commencer,\npuis appuie sur la touche Entree : ");
+    printf("Tu es pret ?\nAppuies sur n'importe quelle touche pour commencer,\npuis appuie sur la touche Entree : ");
     char temp_buffer[64];
     scanf("%s", temp_buffer);
     clear_screen();
     affiche_tableau(tableau_courant, m, n);
-    printf("Voici ton tableau de jeu, tu pars d'en haut à gauche\n");
+    printf("Voici ton tableau de jeu, tu pars d'en haut a gauche\n");
     while (*death_wave != 1 && jeu_fini(tableau_solution, tableau_courant, m, n) != 1)
     {
         printf("Tapes Z,Q,S,D ou @,& ou bien !, puis Entree : ");
@@ -39,7 +39,7 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
         printf("Bravo, tu as gagne ;)\n");
         printf("J'espere que tu n'es pas un nostalgique de MS-DOS,\nParce que Linux c'est mieux ;)\n");
     }
-    printf("A une prochaine fois peut-être !\n");
+    printf("A une prochaine fois peut-etre !\n");
 }
 
 void selection_user(int *p_m, int *p_n, int *p_bombes)
@@ -58,20 +58,20 @@ void selection_user(int *p_m, int *p_n, int *p_bombes)
         printf("Tu ne m'as pas ecoute,\nTant pis, on recommence\n");
         selection_user(p_m, p_n, p_bombes);
     }
-    else 
+    else
     {
         printf("Ok, c'est parti pour un plateau de %dx%d,\net de %d bombes !\n", *p_m, *p_n, *p_bombes);
     }
 }
 
-void initialisation_plateau() 
+void initialisation_plateau()
 {
     char buffer_partie[64];
     printf("Que souhaites tu faire ?\nChoisis un nombre entre 1 et 6 : ");
     scanf("%s", buffer_partie);
-    int bombes = 21; // nombre de bombes dans le tableau
-    int m = 21;      // nombre de lignes du tableau
-    int n = 21;      // nombre de colonnes du tableau
+    int bombes; // nombre de bombes dans le tableau
+    int m;      // nombre de lignes du tableau
+    int n;      // nombre de colonnes du tableau
     switch (buffer_partie[0])
     {
     case '1':
@@ -105,7 +105,7 @@ void initialisation_plateau()
         bombes = 84;
         break;
     case '6':
-        printf("Ok tu es donc prêt à trifouiller le système,\nà tes risques et perils !\n");
+        printf("Ok tu es donc pret a trifouiller le systeme,\na tes risques et perils !\n");
         printf("Pour des raisons de confort d'utilisation,\nla selection est limitee a 100x100 cases maximum,\net bien evidemment,\nil ne faut pas qu'il y ait plus de bombes\nque de cases !\n");
         selection_user(&m, &n, &bombes);
         break;
@@ -122,15 +122,15 @@ void initialisation_plateau()
     int **tableau_courant = creer_tableau(m, n);
     initialiser_tableau_courant(tableau_courant, m, n);
 
-    int temp_val = tableau_courant[0][0]; // on recupere la valeur de la position actuelle (par défaut la case de coordonnées (0,0))
+    int temp_val = -3;                              // on recupere la valeur de la position actuelle (par défaut la case de coordonnées (0,0)) qui vaut -3 au début du jeu (par convention)
     int *position = (int *)malloc(sizeof(int) * 2); // on crée le tableau qui stockera la position du pointeur
-    position[0] = 0; // correspond au y
-    position[1] = 0; // correspond au x
+    position[0] = 0;                                // correspond au y
+    position[1] = 0;                                // correspond au x
     int *temp_val_case = &temp_val;
     jeu(tableau_solution, tableau_courant, m, n, position, temp_val_case);
 }
 
-void start() 
+void start()
 {
     printf("##########-DEMINEUR-##########\n");
     printf("Choix de la partie:\n");
