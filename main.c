@@ -31,11 +31,11 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int bombes
     }
     if (*death_wave)
     {
-        printf("Oh non je suis si triste tu as perdu ;(\n");
+        printf("Oh non je suis si triste tu as perdu ;(\nEssayes encore !\n");
     }
     else if (jeu_fini(tableau_solution, tableau_courant, m, n) != 1) // si on a posé tous les drapeaux mais qu'ils ne sont pas au bon endroit
     {
-        printf("Oh non je suis si triste tu as perdu,\ncar tu as pose les drapeaux au mauvais endroit ;(\n");
+        printf("Oh non je suis si triste tu as perdu,\ncar tu as mal pose les drapeaux ;(\n");
         printf("Voici ce que tu aurais du avoir :\n");
         affiche_tableau(tableau_solution, m, n);
     }
