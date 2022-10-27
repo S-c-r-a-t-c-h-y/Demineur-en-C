@@ -164,7 +164,7 @@ void start()
     initialisation_plateau();
 }
 
-int main(int argc, const char *argv[])
+int main()
 {
     start();
 
