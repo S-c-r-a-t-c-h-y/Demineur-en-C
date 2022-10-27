@@ -16,7 +16,7 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
     int *death_wave = &dead;
     printf("Utilises les touches\n-Z,Q,S,D pour te déplacer,\n-@ pour creuser,\n-& pour mettre un drapeau\n");
     printf("Si durant le jeu tu ne te rappelles plus de ces commandes,\ntapes ! pour qu'elles te soient rappellees\n");
-    printf("Tu es prêt ?\nAppuies sur n'importe quelle touche pour commencer puis appuie sur la touche Entree : ");
+    printf("Tu es prêt ?\nAppuies sur n'importe quelle touche pour commencer,\npuis appuie sur la touche Entree : ");
     char temp_buffer[64];
     scanf("%s", temp_buffer);
     clear_screen();
@@ -37,11 +37,33 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
     else
     {
         printf("Bravo, tu as gagne ;)\n");
-        printf("J'espere que tu n'es pas un nostalgique de MS-DOS, parce que Linux c'est mieux ;)\n");
+        printf("J'espere que tu n'es pas un nostalgique de MS-DOS,\nParce que Linux c'est mieux ;)\n");
     }
     printf("A une prochaine fois peut-être !\n");
     liberer_tableau(tableau_solution, m);
     liberer_tableau(tableau_courant, m);
+}
+
+void selection_user(int *p_m, int *p_n, int *p_bombes)
+{
+    printf("Combien de lignes ? ");
+    scanf("%d", p_m);
+    printf("\n");
+    printf("Combien de colonnes ? ");
+    scanf("%d", p_n);
+    printf("\n");
+    printf("Combien de bombes ? ");
+    scanf("%d", p_bombes);
+    printf("\n");
+    if (*p_m > 100 || *p_n > 100 || *p_m <= 5 || *p_n <= 5 || *p_bombes >= (*p_m) * (*p_n) || *p_bombes <= 1)
+    {
+        printf("Tu ne m'as pas ecoute,\nTant pis, on recommence\n");
+        selection_user(p_m, p_n, p_bombes);
+    }
+    else 
+    {
+        printf("Ok, c'est parti pour un plateau de %dx%d,\net de %d bombes !\n", *p_m, *p_n, *p_bombes);
+    }
 }
 
 void initialisation_plateau() 
@@ -85,11 +107,12 @@ void initialisation_plateau()
         bombes = 84;
         break;
     case '6':
-        printf("Ok tu es donc prêt à trifouiller le système, à tes risques et perils !\n");
-        printf("Pour des raisons de confort d'utilisation, la selection est limitee a 100x100 cases maximum et 1000 bombes\n");
+        printf("Ok tu es donc prêt à trifouiller le système,\nà tes risques et perils !\n");
+        printf("Pour des raisons de confort d'utilisation,\nla selection est limitee a 100x100 cases maximum,\net bien evidemment,\nil ne faut pas qu'il y ait plus de bombes\nque de cases !\n");
+        selection_user(&m, &n, &bombes);
         break;
     default:
-        printf("Mmm, je ne suis pas sur que %c, soit un nombre entre 1 et 6, reessayons !\n", buffer_partie[0]);
+        printf("Mmm, je ne suis pas sur que %c\nsoit un nombre entre 1 et 6, reessayons !\n", buffer_partie[0]);
         initialisation_plateau();
         break;
     }
