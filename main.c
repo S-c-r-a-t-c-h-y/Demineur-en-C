@@ -68,9 +68,9 @@ void initialisation_plateau()
     char buffer_partie[64];
     printf("Que souhaites tu faire ?\nChoisis un nombre entre 1 et 6 : ");
     scanf("%s", buffer_partie);
-    int bombes; // nombre de bombes dans le tableau
-    int m;      // nombre de lignes du tableau
-    int n;      // nombre de colonnes du tableau
+    int bombes = 20; // nombre de bombes dans le tableau
+    int m = 10;      // nombre de lignes du tableau
+    int n = 10;      // nombre de colonnes du tableau
     switch (buffer_partie[0])
     {
     case '1':
