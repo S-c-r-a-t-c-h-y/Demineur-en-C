@@ -290,7 +290,6 @@ void put_flag(int **tab, int m, int n, int *position, int *compteur_flag)
     tab[position[0]][position[1]] = DRAPEAU;
     (*compteur_flag)++;
     affiche_tableau(tab, m, n);
-    printf("Ok on a rajoute un drapeau\n");
 }
 
 void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var)
