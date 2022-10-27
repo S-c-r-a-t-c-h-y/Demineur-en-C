@@ -296,9 +296,10 @@ void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, int *ancien
     }
 }
 
-void put_flag(int **tab, int m, int n, int *position)
+void put_flag(int **tab, int m, int n, int *position, int *compteur_flag)
 {
     tab[position[0]][position[1]] = DRAPEAU;
+    *compteur_flag++;
     affiche_tableau(tab, m, n);
 }
 
@@ -345,7 +346,7 @@ void help(int **tab, int m, int n)
     affiche_tableau(tab, m, n);
 }
 
-void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave)
+void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave, int *compteur_flag)
 {
     clear_screen();
     if (tab[position[0]][position[1]] == CASE_ACTUELLE)
@@ -374,7 +375,7 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
         dig_hole(tab_sol, tab, m, n, position, ancienne_var, death_wave);
         break;
     case '&':
-        put_flag(tab, m, n, position); // ajouter compteur flag à afficher
+        put_flag(tab, m, n, position, compteur_flag); // ajouter compteur flag à afficher
         break;
     case '!':
         help(tab, m, n);
