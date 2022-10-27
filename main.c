@@ -35,11 +35,18 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int bombes
     {
         printf("Oh non je suis si triste tu as perdu ;(\n");
     }
+    else if (jeu_fini(tableau_solution, tableau_courant, m, n) != 1) // si on a posé tous les drapeaux mais qu'ils ne sont pas au bon endroit
+    {
+        printf("Oh non je suis si triste tu as perdu,\ncar tu as posé les drapeaux au mauvais endroit ;(\n");
+        printf("Voici ce que tu aurais du avoir :\n");
+        affiche_tableau(tableau_solution, m, n);
+    }
     else
     {
         printf("Bravo, tu as gagne ;)\n");
         printf("J'espere que tu n'es pas un nostalgique de MS-DOS,\nParce que Linux c'est mieux ;)\n");
     }
+    clear_screen();
     printf("A une prochaine fois peut-etre !\n");
 }
 
