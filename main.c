@@ -22,7 +22,7 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int bombes
     clear_screen();
     affiche_tableau(tableau_courant, m, n);
     printf("Voici ton tableau de jeu, tu pars d'en haut a gauche\n");
-    while (*death_wave != 1 && jeu_fini(tableau_solution, tableau_courant, m, n) != 1 && *compteur_flag != bombes)
+    while (*death_wave != 1 && *compteur_flag != bombes)
     {
         printf("Tu as posé %d/%d drapeaux\n", *compteur_flag, bombes);
         printf("Tapes Z,Q,S,D ou @,& ou bien !, puis Entree : ");
@@ -31,6 +31,7 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int bombes
     }
     liberer_tableau(tableau_solution, m);
     liberer_tableau(tableau_courant, m);
+    printf("ici");
     if (*death_wave)
     {
         printf("Oh non je suis si triste tu as perdu ;(\n");
