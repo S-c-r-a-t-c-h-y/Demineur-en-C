@@ -299,7 +299,7 @@ void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, int *ancien
 void put_flag(int **tab, int m, int n, int *position, int *compteur_flag)
 {
     tab[position[0]][position[1]] = DRAPEAU;
-    *compteur_flag++;
+    (*compteur_flag)++;
     affiche_tableau(tab, m, n);
 }
 
