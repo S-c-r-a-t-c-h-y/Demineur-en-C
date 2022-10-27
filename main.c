@@ -7,7 +7,7 @@
 #include "outils_unix.h"
 #endif
 
-void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *position, int *temp_val_case)
+void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int bombes, int *position, int *temp_val_case)
 {
     char buffer[256];
     int dead = 0;
@@ -22,11 +22,12 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
     clear_screen();
     affiche_tableau(tableau_courant, m, n);
     printf("Voici ton tableau de jeu, tu pars d'en haut a gauche\n");
-    while (*death_wave != 1 && jeu_fini(tableau_solution, tableau_courant, m, n) != 1)
+    while (*death_wave != 1 && jeu_fini(tableau_solution, tableau_courant, m, n) != 1 && *compteur_flag != bombes)
     {
+        printf("Tu as posé %d/%d drapeaux\n", *compteur_flag, bombes);
         printf("Tapes Z,Q,S,D ou @,& ou bien !, puis Entree : ");
         scanf("%255s", buffer);
-        action_clavier(tableau_solution, tableau_courant, m, n, position, temp_val_case, buffer[0], death_wave);
+        action_clavier(tableau_solution, tableau_courant, m, n, position, temp_val_case, buffer[0], death_wave, compteur_flag);
     }
     liberer_tableau(tableau_solution, m);
     liberer_tableau(tableau_courant, m);
@@ -132,7 +133,7 @@ void initialisation_plateau()
     position[0] = 0;                                // correspond au y
     position[1] = 0;                                // correspond au x
     int *temp_val_case = &temp_val;
-    jeu(tableau_solution, tableau_courant, m, n, position, temp_val_case);
+    jeu(tableau_solution, tableau_courant, m, n, bombes, position, temp_val_case);
 }
 
 void start()
