@@ -39,22 +39,7 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int *posit
         printf("Bravo, tu as gagne ;)\n");
         printf("J'espere que tu n'es pas un nostalgique de MS-DOS,\nParce que Linux c'est mieux ;)\n");
     }
-    printf("Souhaites tu recommencer ?\nEntre [y/n] pour confirmer ta reponse,\nsuivi d'Entree\n");
-    char buffer_play_again[64];
-    scanf("%s", buffer_play_again);
-    while (tolower(buffer_play_again[0]) != 'y' || tolower(buffer_play_again[0]) != 'n')
-    {
-        printf("Mmm, je n'ai pas compris,\nReessaye donc : \n");
-        scanf("%s", buffer_play_again);
-    }
-    if (tolower(buffer_play_again[0]) == 'y')
-    {
-        start();
-    }
-    else
-    {
-        printf("Ok,\nA une prochaine fois peut-être !\n");
-    }
+    printf("A une prochaine fois peut-être !\n");
 }
 
 void selection_user(int *p_m, int *p_n, int *p_bombes)
@@ -167,6 +152,5 @@ void start()
 int main()
 {
     start();
-
     return 0;
 }
