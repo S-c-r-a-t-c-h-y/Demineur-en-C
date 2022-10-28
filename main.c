@@ -9,20 +9,20 @@
 
 void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int bombes, int *position, int *temp_val_case)
 {
-    char buffer[256];
+    char buffer[256]; // buffer qui va contenir les entrées utilisateur concernant les choix de déplacement
     int dead = 0;
     int flag = 0;
-    int *compteur_flag = &flag;
-    int *death_wave = &dead;
+    int *compteur_flag = &flag; // pointeur vers le nombre de drapeaux placé sur le jeu, s'il est égal au nombre de bombes, le jeu s'arrête
+    int *death_wave = &dead; // pointeur vers un élément qui sera soit faux (0) soit vrai (1), et dans ce cas là le joueur a perdu
     printf("Utilises les touches\n-Z,Q,S,D pour te deplacer,\n-@ pour creuser,\n-& pour mettre un drapeau\n");
     printf("Si durant le jeu tu ne te rappelles plus de ces commandes,\ntapes ! pour qu'elles te soient rappellees\n");
     printf("\nTu es pret ?\nAppuies sur n'importe quelle touche pour commencer,\npuis appuie sur la touche Entree : ");
     char temp_buffer[64];
-    scanf("%s", temp_buffer);
+    scanf("%64s", temp_buffer);
     clear_screen();
     affiche_tableau(tableau_courant, m, n);
     printf("Voici ton tableau de jeu, tu pars d'en haut a gauche\n");
-    while (*compteur_flag != bombes && !(*death_wave))
+    while (*compteur_flag != bombes && !(*death_wave)) // pour que le jeu s'arrête, soit on a placé tous les drapeaux, soit on a fait exploser une bombe en creusant
     {
         printf("Tu as pose %d/%d drapeaux\n", *compteur_flag, bombes);
         printf("Tapes Z,Q,S,D ou @,& ou bien !, puis Entree : ");
@@ -74,7 +74,7 @@ void initialisation_plateau()
 {
     char buffer_partie[64];
     printf("Que souhaites tu faire ?\nChoisis un nombre entre 1 et 6 : ");
-    scanf("%s", buffer_partie);
+    scanf("%64s", buffer_partie);
     int bombes = 20; // nombre de bombes dans le tableau
     int m = 10;      // nombre de lignes du tableau
     int n = 10;      // nombre de colonnes du tableau
@@ -136,9 +136,9 @@ void initialisation_plateau()
 
     int temp_val = -3;                              // on recupere la valeur de la position actuelle (par défaut la case de coordonnées (0,0)) qui vaut -3 au début du jeu (par convention)
     int *position = (int *)malloc(sizeof(int) * 2); // on crée le tableau qui stockera la position du pointeur
-    position[0] = 0;                                // correspond au y
-    position[1] = 0;                                // correspond au x
-    int *temp_val_case = &temp_val;
+    position[0] = 0;                                // correspond a la ligne ou se trouve le pointeur (m)
+    position[1] = 0;                                // correspond a la colonne ou se trouve le pointeur (n)
+    int *temp_val_case = &temp_val;                 // valeur de la case que l'on récupère, car on va modifier la valeur de la case par la valeur du pointeur pour l'affichage (on remet cette valeur après)
     jeu(tableau_solution, tableau_courant, m, n, bombes, position, temp_val_case);
 }
 

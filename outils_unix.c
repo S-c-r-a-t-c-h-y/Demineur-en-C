@@ -294,6 +294,9 @@ void put_flag(int **tab, int m, int n, int *position, int *compteur_flag)
 
 void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var)
 {
+    // ici les 4 verifications conditionnelles permettent en cas de dépassement des limites 
+    // (en ligne ou en colonne) de revenir au début/fin 
+    // de la même ligne/colonne comme le comportement du snake par exemple
     if (position[0] < 0)
     {
         position[0] = m - 1;
@@ -342,7 +345,7 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
     {
         tab[position[0]][position[1]] = *ancienne_var;
     }
-    switch (toupper(key_pressed))
+    switch (toupper(key_pressed)) // toupper met le caractère en majuscule
     {
     case 'Z':
         position[0]--;
@@ -364,13 +367,13 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
         dig_hole(tab_sol, tab, m, n, position, ancienne_var, death_wave);
         break;
     case '&':
-        put_flag(tab, m, n, position, compteur_flag); // ajouter compteur flag à afficher
+        put_flag(tab, m, n, position, compteur_flag);
         break;
     case '!':
         help(tab, m, n);
         break;
     default: // si une autre touchee a ete pressee
-        printf("Mmm, je ne connais pas %c, peux tu réessayer ?\n",
+        printf("Mmm, je ne connais pas %c, peux tu reessayer ?\n",
                key_pressed);
         break;
     }
