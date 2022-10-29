@@ -306,7 +306,7 @@ void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var)
         position[0] = 0;
     }
     else if (position[1] < 0)
-    {x
+    {
         position[1] = n - 1;
     }
     else if (position[1] >= n)
