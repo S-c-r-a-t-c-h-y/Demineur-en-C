@@ -66,3 +66,21 @@ make clean
 ```
 
 ou sur Windows de supprimer l'exécutable directement.
+
+## Fonctionnalités du programme
+
+Le jeu du démineur est **100%** fonctionnel, cependant voici quand même une liste *non-exhaustive* des fonctionnalités du programme :
+
+- l'utilisateur peut choisir un niveau de difficulté avec des tailles de grille et des nombres de bombes différents
+- l'utilisateur peut choisir de crééer une grille aléatoire de la taille voulu (*min 2x2, max 100x100*) avec le nombre de bombes voulues (*min 1, max inférieur au nombre de cases*)
+- l'utilisateur peut creuser (découvrir une case)
+- l'utilisateur peut poser et enlever des drapeaux
+- l'utilisateur peut demander à (re)afficher les commandes
+
+Toute interaction avec le programme est pris en compte, même les mauvaises entrées ou les entrées multiples.
+
+La partie se finit lorsque toutes les cases ne contenant pas de bombes sont découvertes, auquel cas l'utilisateur gagne, ou lorsque l'utilisateur découvre une case ayant une bombe, auquel cas il perd la partie.
+
+## Code source
+
+Le code source complet se trouve sur [ce repisitory GitHub](https://github.com/S-c-r-a-t-c-h-y/Demineur-en-C).

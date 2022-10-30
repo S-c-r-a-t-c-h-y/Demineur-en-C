@@ -60,8 +60,7 @@ void affiche_tableau(int **tab, int hauteur, int largeur)
     }
 }
 
-int **
-creer_tableau(int m, int n)
+int **creer_tableau(int m, int n)
 {
     int **matrice = (int **)malloc(sizeof(int *) * m);
     if (matrice == NULL)
