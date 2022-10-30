@@ -18,11 +18,21 @@ void affiche_tableau(int **tab, int hauteur, int largeur);
  */
 int **creer_tableau(int m, int n);
 
-/*
+/* Rempli le tableau courant (grille 2D) avec un valeur par défaut (PAS_DECOUVERT)
+ * Entrées : tab un pointeur vers le tableau en question
+ *           m le nombre de lignes du tableau,
+ *           n le nombre de colonnes
+ * Sortie : les valeurs du tableau sont modifiées en conséquant
  */
 void initialiser_tableau_courant(int **tab, int m, int n);
 
-/*
+/* Rempli le tableau solution (grille 2D) avec un certain nombre de bombes,
+ * puis calcul les valeurs des autres cases du tableau (nombre de bombes voisines)
+ * Entrées : tab un pointeur vers le tableau en question
+ *           m le nombre de lignes du tableau,
+ *           n le nombre de colonnes,
+ *           nombre_bombes le nombre de bombes à placer
+ * Sortie : les valeurs du tableau sont modifiées en conséquant
  */
 void initialiser_tableau_solution(int **tab, int m, int n, int nombre_bombes);
 
@@ -33,6 +43,13 @@ void initialiser_tableau_solution(int **tab, int m, int n, int nombre_bombes);
  */
 void liberer_tableau(int **tab, int m);
 
+/*
+ */
+void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave, int *compteur_flag, int *cases_restantes);
+
+/* Fonction non utilisées autre part que dans le fichier outils présentes ici uniquement pour la documentation */
+/* ########################################################################################################### */
+
 /* Affiche le caractère unicode dont le code est passé en paramètre dans
  * la console (encodage UTF-16)
  * Entrée : unicode_code le code UTF-16 du caractère à afficher dans la console
@@ -40,7 +57,21 @@ void liberer_tableau(int **tab, int m);
  */
 void print_unicode(int unicode_code);
 
-/*
+/* Fonction appelée pour modifier les valeurs du tableau courant (tableau de jeu)
+ * lorsque que l'on creuse (découvre) une certaine case
+ * Entrées : tableau_courant un pointeur vers le tableau en question
+ *           tableau_solution un pointeur vers le tableau rempli avec les bombes et les chiffres
+ *           m le nombre de lignes du tableau,
+ *           n le nombre de colonnes,
+ *           y la coordonnée en y de la case à découvrir,
+ *           x la coordonnée en x de la case à découvrir
+ * Sortie : - si la case à découvrir est une bombe, renvoie -1 et découvre toutes les bombes du tableau
+ *          - si la case à découvrir est un drapeau, renvoie 0 et ne fait rien
+ *          - sinon, découvre la case aux coordonnées données et eventuellement les cases voisines s'il s'agit d'une
+ *            case vide et renvoie le nombre de cases ayant été decouvertes
  */
 int decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n, int y, int x);
-void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave, int *compteur_flag, int *cases_restantes);
+void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, int *death_wave, int *cases_restantes);
+void put_flag(int **tab, int m, int n, int *position, int *compteur_flag);
+void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var);
+void help(int **tab, int m, int n);

@@ -1,14 +1,9 @@
 #include "ANSI-color-codes.h"
 #include <assert.h>
 #include <ctype.h> //Pour pouvoir mettre en majuscule les caractères ASCII
-#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <wchar.h>
-
-#define UTF_16_ENCODING 0x00020000
-#define NORMAL_ENCODING 0x4000
 
 #define BOMBE -1
 #define DRAPEAU -2
@@ -17,13 +12,6 @@
 #define DECOUVERT -4
 #define CASE_ACTUELLE -5
 
-#define CLEAR_SCREEN "clear"
-
-void clear_screen()
-{
-    system(CLEAR_SCREEN);
-}
-
 const char *bombe = "⚙";
 const char *drapeau = "⚑";
 const char *pas_decouvert = "☐";
@@ -31,6 +19,13 @@ const char *case_actuelle = "◮"; //⟡
 const char vide = ' ';
 
 const char couleurs[8][8] = {BBLU, BGRN, BRED, BMAG, BYEL, BCYN, BBLK, HBLK};
+
+/* Les spécifications des fonctions se trouvent dans le fichier outils_unix.h */
+
+void clear_screen()
+{
+    system("clear");
+}
 
 void affiche_tableau(int **tab, int hauteur, int largeur)
 {

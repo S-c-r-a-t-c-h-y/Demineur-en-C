@@ -17,8 +17,6 @@
 #define DECOUVERT -4
 #define CASE_ACTUELLE -5
 
-#define CLEAR_SCREEN "cls"
-
 const char vide = ' ';
 const int bombe = 0x2699;
 const int drapeau = 0x2691;
@@ -43,7 +41,7 @@ void print_unicode(int unicode_code)
 
 void clear_screen()
 {
-    system(CLEAR_SCREEN);
+    system("cls");
 }
 
 void affiche_tableau(int **tab, int hauteur, int largeur)
