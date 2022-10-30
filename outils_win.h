@@ -43,5 +43,4 @@ void print_unicode(int unicode_code);
 /*
  */
 int decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n, int y, int x);
-int jeu_fini(int **tab_sol, int **tab_courant, int m, int n);
-void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave, int *compteur_flag);
+void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave, int *compteur_flag, int *cases_restantes);

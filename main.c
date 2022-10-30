@@ -11,10 +11,10 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int bombes
 {
     char buffer[256]; // buffer qui va contenir les entrées utilisateur concernant les choix de déplacement
     int dead = 0;
-    int flag = 0;
-    int *compteur_flag = &flag; // pointeur vers le nombre de drapeaux placé sur le jeu, s'il est égal au nombre de bombes, le jeu s'arrête
-    int *death_wave = &dead; // pointeur vers un élément qui sera soit faux (0) soit vrai (1), et dans ce cas là le joueur a perdu
-    printf("Utilises les touches\n-Z,Q,S,D pour te deplacer,\n-@ pour creuser,\n-& pour mettre un drapeau\n");
+    int compteur_flag = 0;                // nombre de drapeaux placé sur le jeu
+    int cases_restantes = m * n - bombes; // nombre de cases restantes ne contenant pas de bombes, s'il est égal à 0, le jeu s'arrête
+    int *death_wave = &dead;              // pointeur vers un élément qui sera soit faux (0) soit vrai (1), et dans ce cas là le joueur a perdu
+    printf("Utilises les touches\n-Z,Q,S,D pour te deplacer,\n-@ pour creuser,\n-& pour mettre un drapeau ou en enlever un\n");
     printf("Si durant le jeu tu ne te rappelles plus de ces commandes,\ntapes ! pour qu'elles te soient rappellees\n");
     printf("\nTu es pret ?\nAppuies sur n'importe quelle touche pour commencer,\npuis appuie sur la touche Entree : ");
     char temp_buffer[64];
@@ -22,22 +22,16 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int bombes
     clear_screen();
     affiche_tableau(tableau_courant, m, n);
     printf("Voici ton tableau de jeu, tu pars d'en haut a gauche\n");
-    while (*compteur_flag != bombes && !(*death_wave)) // pour que le jeu s'arrête, soit on a placé tous les drapeaux, soit on a fait exploser une bombe en creusant
+    while (cases_restantes != 0 && !(*death_wave)) // pour que le jeu s'arrête, soit on a placé tous les drapeaux, soit on a fait exploser une bombe en creusant
     {
-        printf("Tu as pose %d/%d drapeaux\n", *compteur_flag, bombes);
+        printf("Tu as pose %d/%d drapeaux\n", compteur_flag, bombes);
         printf("Tapes Z,Q,S,D ou @,& ou bien !, puis Entree : ");
         scanf("%255s", buffer);
-        action_clavier(tableau_solution, tableau_courant, m, n, position, temp_val_case, buffer[0], death_wave, compteur_flag);
+        action_clavier(tableau_solution, tableau_courant, m, n, position, temp_val_case, buffer[0], death_wave, &compteur_flag, &cases_restantes);
     }
     if (*death_wave)
     {
         printf("Oh non je suis si triste tu as perdu ;(\nEssayes encore !\n");
-    }
-    else if (jeu_fini(tableau_solution, tableau_courant, m, n) != 1) // si on a posé tous les drapeaux mais qu'ils ne sont pas au bon endroit
-    {
-        printf("Oh non je suis si triste tu as perdu,\ncar tu as mal pose les drapeaux ;(\n");
-        printf("Voici ce que tu aurais du avoir :\n");
-        affiche_tableau(tableau_solution, m, n);
     }
     else
     {

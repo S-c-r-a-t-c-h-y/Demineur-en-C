@@ -256,22 +256,7 @@ void liberer_tableau(int **tab, int m)
     free(tab);
 }
 
-int jeu_fini(int **tab_sol, int **tab_courant, int m, int n)
-{
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            if ((tab_sol[i][j] == BOMBE && tab_courant[i][j] != DRAPEAU) || (tab_sol[i][j] != BOMBE && tab_courant[i][j] == DRAPEAU))
-            {
-                return 0;
-            }
-        }
-    }
-    return 1;
-}
-
-void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, int *death_wave)
+void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, int *death_wave, int *cases_restantes)
 {
     if (*ancienne_var == PAS_DECOUVERT)
     {
@@ -282,21 +267,31 @@ void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, int *ancien
         {
             *death_wave = 1;
         }
+        else
+        {
+            (*cases_restantes) -= temp_points;
+        }
     }
 }
 
 void put_flag(int **tab, int m, int n, int *position, int *compteur_flag)
 {
-    tab[position[0]][position[1]] = DRAPEAU;
-    (*compteur_flag)++;
+    if (tab[position[0]][position[1]] != DRAPEAU)
+    {
+        tab[position[0]][position[1]] = DRAPEAU;
+        (*compteur_flag)++;
+    }
+    else
+    {
+        tab[position[0]][position[1]] = PAS_DECOUVERT;
+        (*compteur_flag)--;
+    }
+
     affiche_tableau(tab, m, n);
 }
 
 void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var)
 {
-    // ici les 4 verifications conditionnelles permettent en cas de dépassement des limites 
-    // (en ligne ou en colonne) de revenir au début/fin 
-    // de la même ligne/colonne comme le comportement du snake par exemple
     if (position[0] < 0)
     {
         position[0] = m - 1;
@@ -328,24 +323,24 @@ void help(int **tab, int m, int n)
     printf("\t-D : Permet d'aller d'une case vers la droite\n");
     printf("Pour @,& :\n");
     printf("\t-@ : Permet de creuser la case,\nattention s'il y a une bombe c'est perdu !\n");
-    printf("\t-& : Permet de mettre un drapeau,\nsi l'on suppose que la case contient une bombe\n");
+    printf("\t-& : Permet de mettre un drapeau, si l'on suppose que la case contient une bombe\nou en enlever un, si l'on suppose qu'on a mit un drapeau au mauvais endroit\n");
     printf("##########\n");
     printf("Rappel : Utilise ! si tu as encore besoin d'aide !\n");
-    printf("Tu es prêt ?\nAppuies sur n'importe quelle touche pour commencer puis appuie sur la touche Entree : ");
+    printf("Tu es pret ?\nAppuies sur n'importe quelle touche pour commencer puis appuie sur la touche Entree : ");
     char temp_buffer[64];
     scanf("%s", temp_buffer);
     clear_screen();
     affiche_tableau(tab, m, n);
 }
 
-void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave, int *compteur_flag)
+void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave, int *compteur_flag, int *cases_restantes)
 {
     clear_screen();
     if (tab[position[0]][position[1]] == CASE_ACTUELLE)
     {
         tab[position[0]][position[1]] = *ancienne_var;
     }
-    switch (toupper(key_pressed)) // toupper met le caractère en majuscule
+    switch (toupper(key_pressed))
     {
     case 'Z':
         position[0]--;
@@ -364,10 +359,10 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
         deplace_pointeur(tab, m, n, position, ancienne_var);
         break;
     case '@':
-        dig_hole(tab_sol, tab, m, n, position, ancienne_var, death_wave);
+        dig_hole(tab_sol, tab, m, n, position, ancienne_var, death_wave, cases_restantes);
         break;
     case '&':
-        put_flag(tab, m, n, position, compteur_flag);
+        put_flag(tab, m, n, position, compteur_flag); // ajouter compteur flag à afficher
         break;
     case '!':
         help(tab, m, n);
