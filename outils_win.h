@@ -66,7 +66,7 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
  * Entrée : s le string à vérifier
  * Sortie : 1 si le string est composé uniquement de nombres, 0 sinon
  */
-int isnumber(char s[]);
+int est_un_nombre(char s[]);
 
 /* Fonction non utilisées autre part que dans le fichier outils présentes ici uniquement pour la documentation */
 /* ########################################################################################################### */

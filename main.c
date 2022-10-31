@@ -58,11 +58,17 @@ void selection_user(int *p_m, int *p_n, int *p_bombes)
     scanf("%s", buffer_bombes);
 
     // vérifie si on a bien un nombre
-    if (!isnumber(buffer_lignes) || !isnumber(buffer_colonnes) || !isnumber(buffer_bombes))
+    if (!est_un_nombre(buffer_lignes) || !est_un_nombre(buffer_colonnes) || !est_un_nombre(buffer_bombes))
     {
         printf("Une des entrees n'est pas un nombre,\nTant pis, on recommence\n");
         selection_user(p_m, p_n, p_bombes);
+        return;
     }
+
+    // atoi() converti un string en int
+    *p_m = atoi(buffer_lignes);
+    *p_n = atoi(buffer_colonnes);
+    *p_bombes = atoi(buffer_bombes);
 
     // vérifie que l'entrée vérifie les conditions
     if (*p_m > 100 || *p_n > 100 || *p_m < 2 || *p_n < 2 || *p_bombes >= (*p_m) * (*p_n) || *p_bombes < 1)
@@ -72,10 +78,6 @@ void selection_user(int *p_m, int *p_n, int *p_bombes)
     }
     else
     {
-        // atoi() converti un string en int
-        *p_m = atoi(buffer_lignes);
-        *p_n = atoi(buffer_colonnes);
-        *p_bombes = atoi(buffer_bombes);
         clear_screen();
         printf("Ok, c'est parti pour un plateau de %dx%d,\net de %d bombes !\n", *p_m, *p_n, *p_bombes);
     }

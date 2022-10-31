@@ -371,7 +371,7 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
     }
 }
 
-int isnumber(char s[])
+int est_un_nombre(char s[])
 {
     for (int i = 0; s[i] != '\0'; i++)
     {
