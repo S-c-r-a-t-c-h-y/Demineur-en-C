@@ -40,6 +40,7 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int bombes
     }
     liberer_tableau(tableau_solution, m);
     liberer_tableau(tableau_courant, m);
+    free(position);
     printf("A une prochaine fois peut-etre !\n");
 }
 
