@@ -377,6 +377,7 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
         help(tab, m, n);
         break;
     default: // si une autre touchee a ete pressee
+        affiche_tableau(tab, m, n);
         printf("Mmm, je ne connais pas %c, peux tu reessayer ?\n",
                key_pressed);
         break;
