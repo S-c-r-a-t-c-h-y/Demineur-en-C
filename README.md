@@ -21,8 +21,6 @@ where gcc
 
 Si vous avez un chemin d'installation alors c'est bon GCC est bien installé, sinon il faudra le faire.
 
-Il vous est bien entendu possible d'utiliser n'importe compilateur C pour compiler le programme si vous le souhaitez.
-
 Maintenant que cette étape est effective, passons à la compilation.
 
 ### 2. Compiler le programme
