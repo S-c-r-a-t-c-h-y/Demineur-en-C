@@ -77,7 +77,7 @@ Le jeu du démineur est **100%** fonctionnel, cependant voici quand même une li
 - l'utilisateur peut poser et enlever des drapeaux
 - l'utilisateur peut demander à (re)afficher les commandes
 
-Toute interaction avec le programme est pris en compte, même les mauvaises entrées ou les entrées multiples.
+Toute interaction avec le programme est pris en compte, même les mauvaises entrées ou les entrées multiples, qui prennent alors le premier caractère rentré. En cas d'erreur, soit le jeu redemande à l'utilisateur de rentrer une commande, soit il réalise une action par défaut.
 
 La partie se finit lorsque toutes les cases ne contenant pas de bombes sont découvertes, auquel cas l'utilisateur gagne, ou lorsque l'utilisateur découvre une case ayant une bombe, auquel cas il perd la partie.
 
