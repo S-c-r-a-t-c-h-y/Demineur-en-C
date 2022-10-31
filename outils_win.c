@@ -385,3 +385,13 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
         break;
     }
 }
+
+int isnumber(char s[])
+{
+    for (int i = 0; s[i] != '\0'; i++)
+    {
+        if (isdigit(s[i]) == 0)
+            return 0;
+    }
+    return 1;
+}

@@ -3,7 +3,7 @@
 
 #ifdef _WIN32 // si l'OS utilisé est Windows
 #include "outils_win.h"
-#else         // si l'OS utilisé est Linux ou macOS (Unix)
+#else // si l'OS utilisé est Linux ou macOS (Unix)
 #include "outils_unix.h"
 #endif
 
@@ -45,13 +45,25 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int bombes
 
 void selection_user(int *p_m, int *p_n, int *p_bombes)
 {
+    char buffer_lignes[3];
+    char buffer_colonnes[3];
+    char buffer_bombes[5];
     printf("\n");
     printf("Combien de lignes ? ");
-    scanf("%d", p_m);
+    scanf("%s", buffer_lignes);
     printf("Combien de colonnes ? ");
-    scanf("%d", p_n);
+    scanf("%s", buffer_colonnes);
     printf("Combien de bombes ? ");
-    scanf("%d", p_bombes);
+    scanf("%s", buffer_bombes);
+
+    // vérifie si on a bien un nombre
+    if (!isnumber(buffer_lignes) || !isnumber(buffer_colonnes) || !isnumber(buffer_bombes))
+    {
+        printf("Une des entrees n'est pas un nombre,\nTant pis, on recommence\n");
+        selection_user(p_m, p_n, p_bombes);
+    }
+
+    // vérifie que l'entrée vérifie les conditions
     if (*p_m > 100 || *p_n > 100 || *p_m < 2 || *p_n < 2 || *p_bombes >= (*p_m) * (*p_n) || *p_bombes < 1)
     {
         printf("Tu ne m'as pas ecoute,\nTant pis, on recommence\n");
@@ -59,6 +71,10 @@ void selection_user(int *p_m, int *p_n, int *p_bombes)
     }
     else
     {
+        // atoi() converti un string en int
+        *p_m = atoi(buffer_lignes);
+        *p_n = atoi(buffer_colonnes);
+        *p_bombes = atoi(buffer_bombes);
         clear_screen();
         printf("Ok, c'est parti pour un plateau de %dx%d,\net de %d bombes !\n", *p_m, *p_n, *p_bombes);
     }

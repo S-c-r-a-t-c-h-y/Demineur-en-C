@@ -55,12 +55,18 @@ void liberer_tableau(int **tab, int m);
  *           compteur_flag, un pointeur vers une variable qui compte le nombre de drapeaux posés, à mettre en relation avec le nombre de bombes
  *           cases_restantes, un pointeur vers une variable qui contient le nombre de cases hormis les bombes qu'il reste à découvrir
  * Sortie : En fonction de la commande rentrée, on appelle soit :
- *          - la fonction de déplacement, `deplace_pointeur`, 
+ *          - la fonction de déplacement, `deplace_pointeur`,
  *          - la fonction pour creuser une case, `dig_hole`,
  *          - la fonction pour poser un drapeau, `put_flag`,
  *          Sinon c'est que l'utilisateur n'a pas rentré la bonne commande, et dans ce cas là la fonction dit qu'elle n'a pas compris l'entrée utilisateur, et on recommence
  */
 void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave, int *compteur_flag, int *cases_restantes);
+
+/* Fonction qui vérifie si un string est composé uniquement de chiffres
+ * Entrée : s le string à vérifier
+ * Sortie : 1 si le string est composé uniquement de nombres, 0 sinon
+ */
+int isnumber(char s[]);
 
 /* Fonction non utilisées autre part que dans le fichier outils présentes ici uniquement pour la documentation */
 /* ########################################################################################################### */
@@ -90,9 +96,9 @@ int decouvrir_case(int **tableau_courant, int **tableau_solution, int m, int n, 
  *           death_wave, un pointeur vers une variable qui vaut soit 0 si le joueur n'a pas creusé une case contenant une bombe, soit 1 si une case contenant une bombe a été créee, si une bombe est creusée, c'est perdu
  *           cases_restantes, un pointeur vers une variable qui contient le nombre de cases hormis les bombes qu'il reste à découvrir
  * Sortie : La case a la position demandée est creusée
- *          Si c'est une bombe c'est perdu, *death_wave prend la valeur 1 et on affiche toutes les bombes du plateau, 
+ *          Si c'est une bombe c'est perdu, *death_wave prend la valeur 1 et on affiche toutes les bombes du plateau,
  *          Sinon on affiche le plateau de jeu avec la case creusée et on met à jour le nombre de cases restantes
-*/
+ */
 void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, int *death_wave, int *cases_restantes);
 
 /* Fonction appelée pour mettre un drapeau sur une case dont on suspecte qu'elle contient une bombe
@@ -107,8 +113,8 @@ void dig_hole(int **tab_sol, int **tab, int m, int n, int *position, int *ancien
  *          - Si la case contient un drapeau,
  *            On fait l'inverse ;
  *            On retire un élément du nombre de drapeaux posés,
- *            On met à jour la valeur de la case pour qu'elle ait la valeur -3 (Pas découvert) 
-*/
+ *            On met à jour la valeur de la case pour qu'elle ait la valeur -3 (Pas découvert)
+ */
 void put_flag(int **tab, int m, int n, int *position, int *compteur_flag);
 
 /* Fonction appelée pour déplacer le pointeur vers la case demandée
@@ -124,11 +130,11 @@ void put_flag(int **tab, int m, int n, int *position, int *compteur_flag);
  *          On stocke la nouvelle valeur de la case
  *          On met le pointeur sur cette case
  *          On affiche le plateau de jeu
-*/
+ */
 void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var);
 
 /* Fonction appelée si l'utilisateur a un doute sur les commandes à utiliser (en tapant !)
  * Entrée : Ø
  * Sortie : Rappelle comment chaque commande fonctionne
-*/
+ */
 void help();
