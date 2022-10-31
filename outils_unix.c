@@ -286,28 +286,28 @@ void put_flag(int **tab, int m, int n, int *position, int *compteur_flag)
 
 void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var)
 {
-    if (position[0] < 0)
+    if (position[0] < 0) // si on est a la -1ème ligne
     {
-        position[0] = m - 1;
+        position[0] = m - 1; // alors on se retrouve à la dernière ligne (m-1)
     }
-    else if (position[0] >= m)
+    else if (position[0] >= m) // si on est a la m ème ligne
     {
-        position[0] = 0;
+        position[0] = 0; // alors on se retrouve à la première ligne (0)
     }
-    else if (position[1] < 0)
+    else if (position[1] < 0) // si on est a la -1ème colonne
     {
-        position[1] = n - 1;
+        position[1] = n - 1; // alors on se retrouve à la dernière colonne (n-1)
     }
-    else if (position[1] >= n)
+    else if (position[1] >= n) // si on est a la n ème colonne
     {
-        position[1] = 0;
+        position[1] = 0; // alors on se retrouve à la première colonne (0)
     }
     *ancienne_var = tab[position[0]][position[1]];
     tab[position[0]][position[1]] = CASE_ACTUELLE;
     affiche_tableau(tab, m, n);
 }
 
-void help(int **tab, int m, int n)
+void help()
 {
     printf("Voici donc un petit rappel des commandes :\n");
     printf("Pour Z,Q,S,D :\n");
@@ -324,7 +324,6 @@ void help(int **tab, int m, int n)
     char temp_buffer[64];
     scanf("%s", temp_buffer);
     clear_screen();
-    affiche_tableau(tab, m, n);
 }
 
 void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *ancienne_var, char key_pressed, int *death_wave, int *compteur_flag, int *cases_restantes)
@@ -359,9 +358,12 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
         put_flag(tab, m, n, position, compteur_flag);
         break;
     case '!':
-        help(tab, m, n);
+        help();
+        tab[position[0]][position[1]] = CASE_ACTUELLE;
+        affiche_tableau(tab, m, n);
         break;
     default: // si une autre touchee a ete pressee
+        tab[position[0]][position[1]] = CASE_ACTUELLE;
         affiche_tableau(tab, m, n);
         printf("Mmm, je ne connais pas %c, peux tu reessayer ?\n",
                key_pressed);

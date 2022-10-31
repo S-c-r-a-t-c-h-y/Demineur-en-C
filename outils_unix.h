@@ -128,9 +128,7 @@ void put_flag(int **tab, int m, int n, int *position, int *compteur_flag);
 void deplace_pointeur(int **tab, int m, int n, int *position, int *ancienne_var);
 
 /* Fonction appelée si l'utilisateur a un doute sur les commandes à utiliser (en tapant !)
- * Entrées : tab, le tableau de jeu qui évolue au fil des découvertes de l'utilisateur
- *           m le nombre de lignes du tableau,
- *           n le nombre de colonnes,
+ * Entrée : Ø
  * Sortie : Rappelle comment chaque commande fonctionne
 */
-void help(int **tab, int m, int n);
+void help();
