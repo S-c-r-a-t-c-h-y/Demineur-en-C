@@ -83,4 +83,4 @@ La partie se finit lorsque toutes les cases ne contenant pas de bombes sont déc
 
 ## Code source
 
-Le code source complet se trouve sur [ce repisitory GitHub](https://github.com/S-c-r-a-t-c-h-y/Demineur-en-C).
+Le code source complet se trouve sur [ce repository GitHub](https://github.com/S-c-r-a-t-c-h-y/Demineur-en-C).
