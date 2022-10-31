@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#ifdef _WIN32
+#ifdef _WIN32 // si l'OS utilisé est Windows
 #include "outils_win.h"
-#else
+#else         // si l'OS utilisé est Linux ou macOS (Unix)
 #include "outils_unix.h"
 #endif
 
