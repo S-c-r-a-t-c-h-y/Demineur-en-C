@@ -22,7 +22,7 @@ void jeu(int **tableau_solution, int **tableau_courant, int m, int n, int bombes
     clear_screen();
     affiche_tableau(tableau_courant, m, n);
     printf("Voici ton tableau de jeu, tu pars d'en haut a gauche\n");
-    while (cases_restantes != 0 && !(*death_wave)) // pour que le jeu s'arrête, soit on a placé tous les drapeaux, soit on a fait exploser une bombe en creusant
+    while (cases_restantes != 0 && !(*death_wave)) // pour que le jeu s'arrête, soit on a découvert toutes les cases sans bombes, soit on a fait exploser une bombe en creusant
     {
         printf("Tu as pose %d/%d drapeaux\n", compteur_flag, bombes);
         printf("Tapes Z,Q,S,D ou @,& ou bien !, puis Entree : ");

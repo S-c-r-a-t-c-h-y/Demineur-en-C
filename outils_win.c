@@ -371,7 +371,7 @@ void action_clavier(int **tab_sol, int **tab, int m, int n, int *position, int *
         dig_hole(tab_sol, tab, m, n, position, ancienne_var, death_wave, cases_restantes);
         break;
     case '&':
-        put_flag(tab, m, n, position, compteur_flag); // ajouter compteur flag à afficher
+        put_flag(tab, m, n, position, compteur_flag);
         break;
     case '!':
         help(tab, m, n);
